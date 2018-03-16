@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="mzt_resStringMasterTabSorted">小宇宙</string>
+    <string name="mzt_resStringMasterTabGalaxy">银河系</string>
+    <string name="mzt_resStringMasterTabMixTopic">暗物质</string>
+    <string name="mzt_resStringMasterTabMixSelfie">镜子</string>
+    <string name="mzt_resStringMasterTabMixAxis">沙漏</string>
+
+</resources>

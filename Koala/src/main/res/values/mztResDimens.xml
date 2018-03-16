@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="mzt_resDimensGreedoDefaultRowHeight">320dp</dimen>
+    <dimen name="mzt_resDimensGreedoDefaultSpacing">4dp</dimen>
+
+</resources>

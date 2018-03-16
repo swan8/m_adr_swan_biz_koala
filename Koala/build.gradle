@@ -1,0 +1,52 @@
+apply plugin: 'com.android.library'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+
+    def ext = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion ext.basic.compileSDK
+    buildToolsVersion ext.basic.buildVersion
+
+    defaultConfig {
+
+        minSdkVersion ext.basic.minSDK
+        targetSdkVersion ext.basic.targetVersion
+
+        versionCode ext.basic.versionCode
+        versionName ext.basic.versionName
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+
+        release {
+            storeFile file('src/release/swan.jks')
+            storePassword 'adrSwan'
+            keyAlias 'adrSwan'
+            keyPassword 'adrSwan'
+            v2SigningEnabled false
+        }
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    dexOptions {
+//        incremental false
+    }
+}
+
+dependencies {
+
+    implementation "${swan.AtomCore}"
+}

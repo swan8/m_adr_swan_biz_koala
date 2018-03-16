@@ -1,0 +1,68 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+
+    def ext = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion ext.basic.compileSDK
+    buildToolsVersion ext.basic.buildVersion
+
+    defaultConfig {
+
+        applicationId "com.stephen.android.kaola"
+
+        minSdkVersion ext.basic.minSDK
+        targetSdkVersion ext.basic.targetVersion
+
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+
+        release {
+            storeFile file('src/release/swan.jks')
+            storePassword 'adrSwan'
+            keyAlias 'adrSwan'
+            keyPassword 'adrSwan'
+            v2SigningEnabled false
+        }
+    }
+
+    buildTypes {
+
+        release {
+            zipAlignEnabled true
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            debuggable true
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation "${swan.AtomCore}"
+
+    implementation "${google.supportAppcompatV7}"
+    implementation "${google.supportConstraintLayout}"
+
+    implementation "${google.LifeCycleRuntim}"
+    implementation "${google.LifeCycleExtensions}"
+    annotationProcessor "${google.LifeCycleCompiler}"
+
+    implementation project(':Koala')
+}
