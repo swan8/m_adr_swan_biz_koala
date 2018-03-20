@@ -16,6 +16,8 @@ class MztDataCenter : IMztDataCenter {
 
     var pageNavigationHasNext: Boolean = true
 
+    var pageNavigationCurrentNumber: String? = null
+
     var pageNavigationLastNumber: String? = null
 
     var searchPlaceHolder: String? = null
@@ -32,6 +34,7 @@ class MztDataCenter : IMztDataCenter {
         document?.let {
             pageNavigationHasPrev = null != it.selectFirst(IMztNodeField.PAGE_NAVI_PREV)
             pageNavigationHasNext = null != it.selectFirst(IMztNodeField.PAGE_NAVI_NEXT)
+            pageNavigationCurrentNumber = it.selectFirst(IMztNodeField.PAGE_NAVI_NUMBER_CURRENT)?.text()
             pageNavigationLastNumber = it.select(IMztNodeField.PAGE_NAVI_NUMBER)?.last()?.text()
         }
     }
@@ -79,6 +82,33 @@ class MztDataCenter : IMztDataCenter {
                 album.title = it.attr(IMztNodeField.NODE_ALT)
                 album.image = it.attr(IMztNodeField.NODE_DATA_ORIGINAL)
             }
+
+            postList.add(album)
+        }
+    }
+
+    fun postListTopicWithElements(elements: Elements?) {
+        elements?.forEach {
+            val album: MztAlbum = MztAlbum()
+            album.unitId = it?.selectFirst(IMztNodeField.VALID_A)?.attr(IMztNodeField.NODE_HREF)
+            album.time = it?.selectFirst(IMztNodeField.POST_LIST_TIME)?.html()
+            album.view = it?.selectFirst(IMztNodeField.NODE_I)?.text()
+
+            val imgElement: Element? = it?.selectFirst(IMztNodeField.VALID_IMG_JPG)
+            imgElement?.let {
+                album.title = it.attr(IMztNodeField.NODE_ALT)
+                album.image = it.attr(IMztNodeField.NODE_SRC)
+            }
+
+            postList.add(album)
+        }
+    }
+
+    fun postListSelfieWithElements(elements: Elements?) {
+        elements?.forEach {
+            val album: MztAlbum = MztAlbum()
+            album.time = it?.selectFirst(IMztNodeField.VALID_A)?.text()
+            album.image = it?.selectFirst(IMztNodeField.VALID_IMG_JPG)?.attr(IMztNodeField.NODE_SRC)
 
             postList.add(album)
         }

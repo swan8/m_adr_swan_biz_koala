@@ -7,6 +7,8 @@ class IMztNodeField {
 
     companion object {
 
+        const val NODE_I: String = "i"
+
         const val NODE_ALT: String = "alt"
 
         const val NODE_HREF: String = "href"
@@ -32,11 +34,17 @@ class IMztNodeField {
 
         const val POST_LIST: String = "div.postlist li" // 专辑(也可以使用[^data]来匹配)
 
+        const val POST_LIST_TOPIC: String = "div.postlist dd" //
+
+        const val POST_LIST_SELFIE: String = "div.comment-body" //
+
         const val POST_LIST_TIME = "span.time" // 专辑日期
 
         const val POST_LIST_VIEW = "span.view" // 专辑浏览次数
 
         const val PAGE_NAVI_NUMBER: String = "a[class=page-numbers]" // 导航条页码
+
+        const val PAGE_NAVI_NUMBER_CURRENT: String = "span[class=page-numbers current]" // 当前页码
 
         const val PAGE_NAVI_PREV: String = "a[class=prev page-numbers]" // 上一页
 

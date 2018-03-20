@@ -5,7 +5,7 @@ package swan.biz.koala.network
  */
 object IMzituApiField {
     
-    const val category: String = "galaxyCategory"
+    const val category: String = "category"
 
     const val imageId: String = "imageId"
 
