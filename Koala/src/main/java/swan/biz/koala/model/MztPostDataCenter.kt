@@ -3,7 +3,9 @@ package swan.biz.koala.model
 /**
  * Created by stephen on 12/03/2018.
  */
-class MztPostDataCenter {
+class MztPostDataCenter : IMztDataCenter {
+
+    override var canonical: String? = null
 
     var pageNavigationHasNext: Boolean = true
 

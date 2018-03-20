@@ -2,11 +2,10 @@ package swan.biz.koala.vm
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import com.github.ajalt.timberkt.Timber
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
-import kotlinx.android.synthetic.main.mzt_master_sorted.*
 import org.jsoup.Jsoup
 import swan.atom.core.base.AtomCoreBaseSchedulerTransformer
-import swan.biz.koala.R
 import swan.biz.koala.model.MztDataCenter
 import swan.biz.koala.network.IMzituRequestService
 import swan.biz.koala.network.IMztNodeField
@@ -60,6 +59,16 @@ class MztMasterSortedViewModel : ViewModel() {
                     }
 
                     postList.value = dataCenter
+                }, {
+                    it.printStackTrace()
+                })
+
+        MzituRequestDelegate.Mzitu()?.postRequestMztPagePathData(category, pageNo)!!
+                .compose(AtomCoreBaseSchedulerTransformer())
+                .subscribe({
+                    Timber.e {
+                        "Success::size::${it?.postList?.size}, canonical::${it?.canonical}"
+                    }
                 }, {
                     it.printStackTrace()
                 })

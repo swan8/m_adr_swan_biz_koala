@@ -8,7 +8,9 @@ import swan.biz.koala.network.IMztNodeField
 /**
  * Created by stephen on 12/03/2018.
  */
-class MztDataCenter {
+class MztDataCenter : IMztDataCenter {
+
+    override var canonical: String? = null
 
     var pageNavigationHasPrev: Boolean? = false
 

@@ -66,6 +66,11 @@ class IMztNodeField {
         const val PLACEHOLDER: String = "placeholder"
     }
 
+    object LINK {
+
+        const val LINK_CANONICAL: String = "link[rel=canonical]"
+    }
+
     object Post {
 
         const val POST_LAST_PAGE_NO: String = "div.pagenavi span:matchesOwn(\\d+)"
