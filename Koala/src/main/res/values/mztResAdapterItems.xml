@@ -3,4 +3,6 @@
 
     <item type="id" name="mzt_resAdapterItem_AlbumList" />
 
+    <item type="id" name="mzt_resAdapterItem_PostBody" />
+
 </resources>

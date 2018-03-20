@@ -3,6 +3,7 @@ package swan.biz.koala.network
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
+import swan.biz.koala.model.MztPostDataCenter
 
 /**
  * Created by stephen on 18-3-9.
@@ -53,4 +54,10 @@ interface IMzituRequestService {
             @Path(IMzituApiField.imageId) imageId: String,
             @Path(IMzituApiField.page) page: Int
     ): Observable<String>
+
+    @GET(IMzituRequestService.API_IMAGE_LIST)
+    fun postRequestMztPostData(
+            @Path(IMzituApiField.imageId) imageId: String,
+            @Path(IMzituApiField.page) page: Int
+    ): Observable<MztPostDataCenter>
 }

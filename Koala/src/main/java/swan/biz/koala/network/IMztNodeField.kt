@@ -52,4 +52,39 @@ class IMztNodeField {
 
         const val TAG: String = "a[abs:href~=(?i)tag]" // 标签
     }
+
+    object NODE {
+
+        const val ALT: String = "alt"
+
+        const val HREF: String = "href"
+
+        const val SRC: String = "src"
+
+        const val DATA_ORIGINAL: String = "data-original"
+
+        const val PLACEHOLDER: String = "placeholder"
+    }
+
+    object Post {
+
+        const val POST_LAST_PAGE_NO: String = "div.pagenavi span:matchesOwn(\\d+)"
+
+        const val POST_MAIN_TITLE: String = "h2.main-title"
+
+        const val POST_MAIN_IMAGE: String = "div.main-image img[src]"
+    }
+
+    object META {
+
+        const val META_MAIN: String = "div.main-meta"
+
+        const val META_CATEGORY: String = META.META_MAIN + " a[rel]"
+
+        /**
+         * 搜索META信息中有数字的Span标签(第1个是发布于 yyyy-MM-dd HH:mm，第2个是xxxx次浏览)
+         */
+        const val META_PURE_SPAN: String = META.META_MAIN + " span:matchesOwn(\\d+)"
+
+    }
 }

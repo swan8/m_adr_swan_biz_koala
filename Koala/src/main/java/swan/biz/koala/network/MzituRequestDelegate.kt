@@ -5,6 +5,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import swan.biz.koala.network.convert.MztConverterFactory
 
 /**
  * Created by stephen on 18-3-9.
@@ -23,6 +24,7 @@ object MzituRequestDelegate {
         var retrofit: Retrofit = Retrofit.Builder()
                 .client(okHttpClient)
                 .baseUrl(IMzituRequestService.BASE_URL)
+                .addConverterFactory(MztConverterFactory.create())
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()

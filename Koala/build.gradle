@@ -48,5 +48,7 @@ android {
 
 dependencies {
 
+    implementation "${nice.SrfExtHorizontal}"
+
     implementation "${swan.AtomCore}"
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <me.dkzwm.widget.srl.HorizontalSmoothRefreshLayout
+        android:id="@+id/postRefreshContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/postRecyclerContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </me.dkzwm.widget.srl.HorizontalSmoothRefreshLayout>
+
+</android.support.constraint.ConstraintLayout>

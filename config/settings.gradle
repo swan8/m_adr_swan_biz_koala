@@ -104,6 +104,7 @@ ext {
             TimberKt                        : "com.github.ajalt:timberkt:${libVersions.Ver_Nice_Timber}",
             Croller                         : "com.sdsmdg.harjot:croller:${libVersions.Ver_Nice_Croller}",
             SmoothRefreshLayout             : "com.github.dkzwm:SmoothRefreshLayout:${libVersions.Ver_Nice_SmoothRefreshLayout}",
+            SrfExtHorizontal                : "com.github.dkzwm.SmoothRefreshLayout:ext-horizontal:${libVersions.Ver_Nice_SmoothRefreshLayout}",
             GreedoLayout                    : "com.fivehundredpx:greedo-layout:${libVersions.Ver_Nice_GreedoLayout}",
             Fresco                          : "com.facebook.fresco:fresco:${libVersions.Ver_Nice_Fresco}",
             FrescoOkHttp                    : "com.facebook.fresco:imagepipeline-okhttp3:${libVersions.Ver_Nice_Fresco}",

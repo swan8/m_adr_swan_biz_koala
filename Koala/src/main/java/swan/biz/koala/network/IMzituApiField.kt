@@ -10,4 +10,6 @@ object IMzituApiField {
     const val imageId: String = "imageId"
 
     const val page: String = "page"
+
+    const val postId: String = "postId"
 }

@@ -11,9 +11,12 @@ import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
 import kotlinx.android.synthetic.main.mzt_master_sorted.*
 import me.dkzwm.widget.srl.SmoothRefreshLayout
 import swam.atom.core.extensions.obtainViewModel
+import swan.atom.core.base.AtomCoreBaseActivity
 import swan.atom.core.base.AtomCoreBaseFragment
 import swan.biz.koala.KoalaApplicationImpl
 import swan.biz.koala.R
+import swan.biz.koala.RecyclerItemClickListener
+import swan.biz.koala.activity.MztPostActivity
 import swan.biz.koala.adapter.item.MztSortedListBodyItem
 import swan.biz.koala.network.IMzituRequestService
 import swan.biz.koala.vm.MztMasterSortedViewModel
@@ -50,6 +53,13 @@ class MztMasterSortedFragment : AtomCoreBaseFragment(), SmoothRefreshLayout.OnRe
 
             fastItemAdapter = FastItemAdapter<MztSortedListBodyItem>()
             it.adapter = fastItemAdapter
+
+            it.addOnItemTouchListener(RecyclerItemClickListener(context!!, object: RecyclerItemClickListener.SimpleOnItemClickListener() {
+
+                override fun onItemClick(childView: View?, position: Int) {
+                    MztPostActivity.newInstance(activity as AtomCoreBaseActivity, "125838")
+                }
+            }))
         }
     }
 
