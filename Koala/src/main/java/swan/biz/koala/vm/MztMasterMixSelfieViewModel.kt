@@ -71,9 +71,9 @@ class MztMasterMixSelfieViewModel : ViewModel() {
     private fun postRequest(category: String, page: Int): Observable<String> {
         return when (pageNo) {
             0 ->
-                MzituRequestDelegate.Mzitu()?.postRequestMztPagePath(category, page)!!
+                MzituRequestDelegate.requestService().postRequestMztPagePath(category, page)
             else ->
-                MzituRequestDelegate.Mzitu()?.postRequestMztCommentPagePath(category, page)!!
+                MzituRequestDelegate.requestService().postRequestMztCommentPagePath(category, page)
         }
     }
 }

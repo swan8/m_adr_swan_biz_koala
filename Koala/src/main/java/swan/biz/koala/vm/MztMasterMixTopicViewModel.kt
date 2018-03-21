@@ -40,10 +40,10 @@ class MztMasterMixTopicViewModel : ViewModel() {
             false -> ++ pageNo
         }
 
-        MzituRequestDelegate.Mzitu()?.postRequestMztPagePath(
+        MzituRequestDelegate.requestService().postRequestMztPagePath(
                 category.value ?: IMzituRequestService.CATEGORY.TOPIC,
                 pageNo
-        )!!.compose(AtomCoreBaseSchedulerTransformer())
+        ).compose(AtomCoreBaseSchedulerTransformer())
                 .subscribe({
                     val dataCenter: MztDataCenter = MztDataCenter()
                     it.let {

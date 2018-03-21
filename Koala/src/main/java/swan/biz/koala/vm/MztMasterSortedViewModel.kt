@@ -43,7 +43,7 @@ class MztMasterSortedViewModel : ViewModel() {
 
         val category: String = if (category.value == null) IMzituRequestService.CATEGORY.INDEX else category.value!!
 
-        MzituRequestDelegate.Mzitu()?.postRequestMztPagePath(category, pageNo)!!
+        MzituRequestDelegate.requestService().postRequestMztPagePath(category, pageNo)
                 .compose(AtomCoreBaseSchedulerTransformer())
                 .subscribe({
                     val dataCenter: MztDataCenter = MztDataCenter()
@@ -63,7 +63,7 @@ class MztMasterSortedViewModel : ViewModel() {
                     it.printStackTrace()
                 })
 
-        MzituRequestDelegate.Mzitu()?.postRequestMztPagePathData(category, pageNo)!!
+        MzituRequestDelegate.requestService().postRequestMztPagePathData(category, pageNo)
                 .compose(AtomCoreBaseSchedulerTransformer())
                 .subscribe({
                     Timber.e {

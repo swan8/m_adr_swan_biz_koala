@@ -40,10 +40,10 @@ class MztMasterGalaxyViewModel : ViewModel() {
             false -> ++ pageNo
         }
 
-        MzituRequestDelegate.Mzitu()?.postRequestMztPagePath(
+        MzituRequestDelegate.requestService().postRequestMztPagePath(
                 galaxyCategory.value ?: IMzituRequestService.CATEGORY.MM,
                 pageNo
-        )!!.compose(AtomCoreBaseSchedulerTransformer())
+        ).compose(AtomCoreBaseSchedulerTransformer())
                 .subscribe({
                     val dataCenter: MztDataCenter = MztDataCenter()
                     it.let {

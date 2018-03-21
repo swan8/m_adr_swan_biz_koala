@@ -23,7 +23,7 @@ class MztPostViewModel : ViewModel() {
             false -> ++ pageNo
         }
 
-        MzituRequestDelegate.Mzitu()?.postRequestMztPostData(postId, 1)!!
+        MzituRequestDelegate.requestService().postRequestMztPostData(postId, 1)
                 .compose(AtomCoreBaseSchedulerTransformer())
                 .subscribe({
                     val dataCenter = it
