@@ -54,7 +54,13 @@ object MzituRequestInterceptor : okhttp3.Interceptor {
         val response: Response = chain.proceed(request)
         return when (response.code()) {
             200 -> response
-            504 ->
+            301, 302 ->
+                chain.proceed(
+                        request.newBuilder()
+                                .url(response.header("Location") ?: "")
+                                .cacheControl(CacheControl.FORCE_NETWORK).build()
+                )
+            304, 504 ->
                 chain.proceed(
                         request.newBuilder().cacheControl(CacheControl.FORCE_NETWORK).build()
                 )
