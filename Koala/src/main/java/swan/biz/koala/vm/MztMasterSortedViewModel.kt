@@ -63,14 +63,12 @@ class MztMasterSortedViewModel : ViewModel() {
                     it.printStackTrace()
                 })
 
-//        MzituRequestDelegate.requestService().postRequestMztPagePathData(category, pageNo)
-//                .compose(AtomCoreBaseSchedulerTransformer())
-//                .subscribe({
-//                    Timber.e {
-//                        "Success::size::${it?.postList?.size}, canonical::${it?.canonical}"
-//                    }
-//                }, {
-//                    it.printStackTrace()
-//                })
+        MzituRequestDelegate.requestService().postRequestMztPagePathData(category, pageNo)
+                .compose(AtomCoreBaseSchedulerTransformer())
+                .subscribe({
+                    postList.value = it
+                }, {
+                    it.printStackTrace()
+                })
     }
 }

@@ -4,6 +4,7 @@ import okhttp3.ResponseBody
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
+import org.jsoup.select.Elements
 import retrofit2.Converter
 import swan.biz.koala.model.MztAlbum
 import swan.biz.koala.model.MztDataCenter
@@ -25,9 +26,11 @@ object MztDataCenterConverter : Converter<ResponseBody, MztDataCenter> {
 
         canonical = document?.selectFirst(IMztNodeField.LINK.LINK_CANONICAL)?.attr(IMztNodeField.NODE.HREF)?.also {
             when {
-                it == IMzituRequestService.BASE_URL
-                        || it.contains(IMzituRequestService.CATEGORY.BEST) ->
-                    postListConverter(document)
+                it.contains(IMzituRequestService.CATEGORY.TOPIC) ->
+                    postListTopicWithElements(document)
+                it.contains(IMzituRequestService.CATEGORY.SELFIE) ->
+                    postListSelfieWithElements(document)
+                else -> postListConverter(document)
             }
         }
 
@@ -76,5 +79,32 @@ object MztDataCenterConverter : Converter<ResponseBody, MztDataCenter> {
         }
 
         return this
+    }
+
+    private fun MztDataCenter.postListTopicWithElements(document: Document?) {
+        document?.select(IMztNodeField.POST_LIST_TOPIC)?.forEach {
+            val album: MztAlbum = MztAlbum()
+            postList.add(album)
+
+            album.unitId = it?.selectFirst(IMztNodeField.VALID_A)?.attr(IMztNodeField.NODE_HREF)
+            album.time = it?.selectFirst(IMztNodeField.POST_LIST_TIME)?.html()
+            album.view = it?.selectFirst(IMztNodeField.NODE_I)?.text()
+
+            val imgElement: Element? = it?.selectFirst(IMztNodeField.VALID_IMG_JPG)
+            imgElement?.let {
+                album.title = it.attr(IMztNodeField.NODE_ALT)
+                album.image = it.attr(IMztNodeField.NODE_SRC)
+            }
+        }
+    }
+
+    private fun MztDataCenter.postListSelfieWithElements(document: Document?) {
+        document?.select(IMztNodeField.POST_LIST_SELFIE)?.forEach {
+            val album: MztAlbum = MztAlbum()
+            postList.add(album)
+
+            album.time = it?.selectFirst(IMztNodeField.VALID_A)?.text()
+            album.image = it?.selectFirst(IMztNodeField.VALID_IMG_JPG)?.attr(IMztNodeField.NODE_SRC)
+        }
     }
 }
