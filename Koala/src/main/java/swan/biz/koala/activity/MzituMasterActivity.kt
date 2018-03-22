@@ -49,7 +49,7 @@ class MzituMasterActivity: AtomCoreBaseActivity() {
         }
 
         val masterSortedViewModel: MztMasterSortedViewModel = obtainViewModel(MztMasterSortedViewModel::class.java)
-        masterSortedViewModel.postList.observe(this, android.arch.lifecycle.Observer {
+        masterSortedViewModel.dataCenter.observe(this, android.arch.lifecycle.Observer {
             resetMasterTopLayout(it?.top)
         })
     }

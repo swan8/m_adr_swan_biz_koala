@@ -27,9 +27,9 @@ import java.util.*
  */
 class MztMasterSortedFragment : AtomCoreBaseFragment(), SmoothRefreshLayout.OnRefreshListener, GreedoLayoutSizeCalculator.SizeCalculatorDelegate {
 
-    var fastItemAdapter: FastItemAdapter<MztSortedListBodyItem>? = null
+    private var fastItemAdapter: FastItemAdapter<MztSortedListBodyItem>? = null
 
-    var ratio: MutableList<Double> = mutableListOf<Double>()
+    private var ratio: MutableList<Double> = mutableListOf<Double>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.mzt_master_sorted, container, false)
@@ -71,13 +71,13 @@ class MztMasterSortedFragment : AtomCoreBaseFragment(), SmoothRefreshLayout.OnRe
             onRefreshBegin(true)
         })
 
-        masterSortedViewModel?.postList?.observe(this, android.arch.lifecycle.Observer {
+        masterSortedViewModel?.dataCenter?.observe(this, android.arch.lifecycle.Observer {
             val items: MutableList<MztSortedListBodyItem> = mutableListOf()
             it?.postList?.map {
                 items.add(MztSortedListBodyItem(it))
             }
 
-            masterSortedViewModel.isFirstPage(fastItemAdapter)
+            masterSortedViewModel.clearAdapterItemDataWhenFirstPage(fastItemAdapter)
             fastItemAdapter?.add(items)
 
             masterSortedRefreshContainer.setDisableLoadMore(! it?.pageNavigationHasNext!!)
@@ -90,7 +90,7 @@ class MztMasterSortedFragment : AtomCoreBaseFragment(), SmoothRefreshLayout.OnRe
     override fun onRefreshBegin(isRefresh: Boolean) {
         activity?.let {
             val masterSortedViewModel: MztMasterSortedViewModel? = obtainViewModel(MztMasterSortedViewModel::class.java)
-            masterSortedViewModel?.loadMasterDataCenter(isRefresh)
+            masterSortedViewModel?.postRequestDataCenter(isRefresh)
         }
     }
 
@@ -100,10 +100,12 @@ class MztMasterSortedFragment : AtomCoreBaseFragment(), SmoothRefreshLayout.OnRe
 
     override fun aspectRatioForIndex(index: Int): Double {
         var r: Double? = ratio.getOrNull(index)
-        if (null == r) {
-            r = (Random().nextInt(25) + 55.0) / 100
-            ratio.add(index, r)
+        r?.let {
+            return it
         }
+
+        r = (Random().nextInt(25) + 55.0) / 100
+        ratio.add(index, r)
 
         return r
     }

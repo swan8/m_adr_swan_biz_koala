@@ -15,7 +15,6 @@ import swan.atom.core.base.AtomCoreBaseFragment
 import swan.biz.koala.KoalaApplicationImpl
 import swan.biz.koala.R
 import swan.biz.koala.adapter.item.MztSortedListBodyItem
-import swan.biz.koala.network.IMzituRequestService
 import swan.biz.koala.vm.MztMasterMixSelfieViewModel
 import java.util.*
 
@@ -58,10 +57,6 @@ class MztMasterMixSelfieFragment : AtomCoreBaseFragment(), SmoothRefreshLayout.O
         super.onActivityCreated(savedInstanceState)
 
         val mixSelfieViewModel: MztMasterMixSelfieViewModel? = obtainViewModel(MztMasterMixSelfieViewModel::class.java)
-        mixSelfieViewModel?.category?.observe(this, android.arch.lifecycle.Observer {
-            onRefreshBegin(true)
-        })
-
         mixSelfieViewModel?.dataCenter?.observe(this, android.arch.lifecycle.Observer {
             val items: MutableList<MztSortedListBodyItem> = mutableListOf()
             it?.postList?.map {
@@ -78,13 +73,13 @@ class MztMasterMixSelfieFragment : AtomCoreBaseFragment(), SmoothRefreshLayout.O
 
     override fun fragmentOnFirstVisibleToUser() {
         val mixSelfieViewModel: MztMasterMixSelfieViewModel? = obtainViewModel(MztMasterMixSelfieViewModel::class.java)
-        mixSelfieViewModel?.setCategoryValue(IMzituRequestService.CATEGORY.SELFIE)
+        mixSelfieViewModel?.postRequestDataCenter(true)
     }
 
     override fun onRefreshBegin(isRefresh: Boolean) {
         activity?.let {
             val masterGalaxyViewModel: MztMasterMixSelfieViewModel? = obtainViewModel(MztMasterMixSelfieViewModel::class.java)
-            masterGalaxyViewModel?.loadDataCenter(isRefresh)
+            masterGalaxyViewModel?.postRequestDataCenter(isRefresh)
         }
     }
 
@@ -94,8 +89,13 @@ class MztMasterMixSelfieFragment : AtomCoreBaseFragment(), SmoothRefreshLayout.O
 
     override fun aspectRatioForIndex(index: Int): Double {
         var r: Double? = ratio.getOrNull(index)
-        r = r ?: (Random().nextInt(25) + 55.0) / 100
+        r?.let {
+            return it
+        }
+
+        r = (Random().nextInt(25) + 55.0) / 100
         ratio.add(index, r)
+
         return r
     }
 }

@@ -103,14 +103,4 @@ class MztDataCenter : IMztDataCenter {
             postList.add(album)
         }
     }
-
-    fun postListSelfieWithElements(elements: Elements?) {
-        elements?.forEach {
-            val album: MztAlbum = MztAlbum()
-            album.time = it?.selectFirst(IMztNodeField.VALID_A)?.text()
-            album.image = it?.selectFirst(IMztNodeField.VALID_IMG_JPG)?.attr(IMztNodeField.NODE_SRC)
-
-            postList.add(album)
-        }
-    }
 }

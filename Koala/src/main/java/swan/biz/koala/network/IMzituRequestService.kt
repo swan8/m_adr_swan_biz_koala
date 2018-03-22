@@ -63,13 +63,6 @@ interface IMzituRequestService {
             @Path(IMzituApiField.category) category: String
     ): Observable<String>
 
-    @GET(IMzituRequestService.BASE_COMMENT_PATH)
-    fun postRequestMztCommentPagePath(
-            @Path(IMzituApiField.category) category: String,
-            @Path(IMzituApiField.page) page: Int
-    ): Observable<String>
-
-
     @GET(IMzituRequestService.BASE_PATH)
     fun postRequestMztPagePathData(
             @Path(IMzituApiField.category) category: String,
@@ -81,4 +74,10 @@ interface IMzituRequestService {
             @Path(IMzituApiField.imageId) imageId: String,
             @Path(IMzituApiField.page) page: Int
     ): Observable<MztPostDataCenter>
+
+    @GET(IMzituRequestService.BASE_COMMENT_PATH)
+    fun postRequestMztCommentPagePath(
+            @Path(IMzituApiField.category) category: String,
+            @Path(IMzituApiField.page) page: Int
+    ): Observable<MztDataCenter>
 }

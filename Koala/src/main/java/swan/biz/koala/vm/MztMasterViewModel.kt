@@ -2,52 +2,74 @@ package swan.biz.koala.vm
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
 import io.reactivex.Observable
 import swan.atom.core.base.AtomCoreBaseSchedulerTransformer
 import swan.biz.koala.model.IMztDataCenter
-import swan.biz.koala.model.MztDataCenter
 
 /**
  * Created by stephen on 18-3-22.
  */
-open class MztMasterViewModel<DataCenter : IMztDataCenter> constructor(
+abstract class MztMasterViewModel<DataCenter : IMztDataCenter> constructor(
         category: String
 ): ViewModel() {
 
-    var pageNo: Int = 0
-        private set
+    abstract val initializerPageNo: Int
 
-    var dataCenter: MutableLiveData<MztDataCenter> = MutableLiveData<MztDataCenter>()
-        private set
+    abstract var pageNo: Int
+        protected set
 
-    var category: String
-        private set
+    var dataCenter: MutableLiveData<DataCenter> = MutableLiveData<DataCenter>()
+        protected set
+
+    var category: MutableLiveData<String> = MutableLiveData<String>()
+        protected set
 
     init {
-        this.category = category
+        this.category.value = category
     }
 
     open fun postRequestDataCenter(isRefresh: Boolean) {
-        pageNoValueWhenPostRequest(isRefresh)
+        postRequestSetPageNoValue(isRefresh)
 
-    }
-
-    open fun pageNoValueWhenPostRequest(isRefresh: Boolean) {
-        when (isRefresh) {
-            true -> pageNo = 0
-            false -> Math.max(-- pageNo, 0)
-        }
-
-        requestServiceWhenPostRequest(category, pageNo)
+        postRequestGetService(category.value ?: "", pageNo)
                 .compose(AtomCoreBaseSchedulerTransformer())
                 .subscribe({
-
+                    postRequestOnSuccess(dataCenter = it)
                 }, {
-
+                    postRequestOnError(throwable = it)
                 })
     }
 
-    open fun requestServiceWhenPostRequest(category: String, pageNo: Int) : Observable<DataCenter> {
-        return Observable.create {  }
+    protected abstract fun postRequestSetPageNoValue(isRefresh: Boolean)
+
+    protected abstract fun postRequestGetService(category: String, pageNo: Int) : Observable<DataCenter>
+
+    protected abstract fun postRequestOnSuccess(dataCenter: DataCenter)
+
+    protected abstract fun postRequestOnError(throwable: Throwable)
+
+    protected fun postRequestMinusPageNoValue(isRefresh: Boolean) {
+        when (isRefresh) {
+            true -> pageNo = initializerPageNo
+            false -> Math.max(-- pageNo, initializerPageNo)
+        }
+    }
+
+    protected fun postRequestPlusPageNoValue(isRefresh: Boolean) {
+        when (isRefresh) {
+            true -> pageNo = initializerPageNo
+            false -> ++ pageNo
+        }
+    }
+
+    fun resetMasterSortedCategory(categoryValue: String) {
+        category.value = categoryValue
+    }
+
+    fun clearAdapterItemDataWhenFirstPage(adapter: FastItemAdapter<*>?): Unit {
+        when (pageNo) {
+            initializerPageNo -> adapter?.clear()
+        }
     }
 }

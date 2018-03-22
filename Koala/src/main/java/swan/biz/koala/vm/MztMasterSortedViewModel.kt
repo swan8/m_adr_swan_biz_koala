@@ -1,74 +1,32 @@
 package swan.biz.koala.vm
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
-import com.github.ajalt.timberkt.Timber
-import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
-import org.jsoup.Jsoup
-import swan.atom.core.base.AtomCoreBaseSchedulerTransformer
+import io.reactivex.Observable
 import swan.biz.koala.model.MztDataCenter
 import swan.biz.koala.network.IMzituRequestService
-import swan.biz.koala.network.IMztNodeField
 import swan.biz.koala.network.MzituRequestDelegate
 
 /**
  * Created by stephen on 14/03/2018.
  */
-class MztMasterSortedViewModel : ViewModel() {
+class MztMasterSortedViewModel : MztMasterViewModel<MztDataCenter>(IMzituRequestService.CATEGORY.INDEX) {
 
-    var pageNo: Int = 1
-    private set
+    override val initializerPageNo: Int = 1
 
-    var postList: MutableLiveData<MztDataCenter> = MutableLiveData<MztDataCenter>()
-    private set
+    override var pageNo: Int = 1
 
-    var category: MutableLiveData<String> = MutableLiveData<String>()
-    private set
-
-    fun resetMasterSortedCategory(c: String) {
-        category.value = c
+    override fun postRequestSetPageNoValue(isRefresh: Boolean) {
+        postRequestPlusPageNoValue(isRefresh)
     }
 
-    fun isFirstPage(adapter: FastItemAdapter<*>?): Unit {
-        when (pageNo) {
-            1 -> adapter?.clear()
-        }
+    override fun postRequestGetService(category: String, pageNo: Int): Observable<MztDataCenter> {
+        return MzituRequestDelegate.requestService().postRequestMztPagePathData(category, pageNo)
     }
 
-    fun loadMasterDataCenter(isRefresh: Boolean) {
-        when (isRefresh) {
-            true -> pageNo = 1
-            false -> ++ pageNo
-        }
+    override fun postRequestOnSuccess(dataCenter: MztDataCenter) {
+        this.dataCenter.value = dataCenter
+    }
 
-        val category: String = if (category.value == null) IMzituRequestService.CATEGORY.INDEX else category.value!!
-
-        MzituRequestDelegate.requestService().postRequestMztPagePath(category, pageNo)
-                .compose(AtomCoreBaseSchedulerTransformer())
-                .subscribe({
-                    val dataCenter: MztDataCenter = MztDataCenter()
-                    it.let {
-                        Jsoup.parse(it)
-                    }?.let {
-                        dataCenter.searchPlaceHolder = it.selectFirst(IMztNodeField.SEARCH_INPUT).attr(IMztNodeField.NODE_PLACEHOLDER)
-                        dataCenter.pageNavigationWithDocument(it)
-                        dataCenter.topWithElements(it.select(IMztNodeField.WIDGET_TOP))
-                        dataCenter.guessWithElements(it.select(IMztNodeField.WIDGET_LIKE_GUESS))
-                        dataCenter.loveWithElements(it.select(IMztNodeField.WIDGET_LIKE_LOVE))
-                        dataCenter.postListWithElements(it.select(IMztNodeField.POST_LIST))
-                    }
-
-                    postList.value = dataCenter
-                }, {
-                    it.printStackTrace()
-                })
-
-        MzituRequestDelegate.requestService().postRequestMztPagePathData(category, pageNo)
-                .compose(AtomCoreBaseSchedulerTransformer())
-                .subscribe({
-                    postList.value = it
-                }, {
-                    it.printStackTrace()
-                })
+    override fun postRequestOnError(throwable: Throwable) {
+        throwable.printStackTrace()
     }
 }
