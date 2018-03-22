@@ -4,6 +4,7 @@ import android.os.Build
 import android.webkit.WebSettings
 import okhttp3.*
 import swan.biz.koala.KoalaApplicationImpl
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by stephen on 18-2-11.
@@ -15,7 +16,12 @@ object MzituRequestInterceptor : okhttp3.Interceptor {
         val builder: Request.Builder = request.newBuilder()
                 .removeHeader("Pragma")
                 .removeHeader("Cache-Control")
-                .cacheControl(CacheControl.FORCE_CACHE)
+                .cacheControl(
+                        CacheControl.Builder()
+                                .onlyIfCached()
+                                .maxStale(43200 + 600, TimeUnit.SECONDS)
+                                .build()
+                )
                 .removeHeader("User-Agent")
                 .header("User-Agent", defaultUserAgent())
 
@@ -29,8 +35,6 @@ object MzituRequestInterceptor : okhttp3.Interceptor {
 
     private fun interceptRequestFormBody(builder: Request.Builder, chain: Interceptor.Chain): Response {
         val newRequestBuilder: FormBody.Builder = FormBody.Builder()
-//                .addEncoded(IReadHubApiField.key, "3178a0cf34f5b16fef5cbfc7f588ad68")
-//                .addEncoded(IReadHubApiField.dtype, "json")
 
         val body: FormBody = chain.request().body() as FormBody
         if (body.size() > 0) {
@@ -55,11 +59,11 @@ object MzituRequestInterceptor : okhttp3.Interceptor {
         return when (response.code()) {
             200 -> response
             301, 302 ->
-                chain.proceed(
-                        request.newBuilder()
-                                .url(response.header("Location") ?: "")
-                                .cacheControl(CacheControl.FORCE_NETWORK).build()
-                )
+                request.header("Location")?.let {
+                    chain.proceed(
+                            request.newBuilder().url(it).cacheControl(CacheControl.FORCE_NETWORK).build()
+                    )
+                } ?: response
             304, 504 ->
                 chain.proceed(
                         request.newBuilder().cacheControl(CacheControl.FORCE_NETWORK).build()

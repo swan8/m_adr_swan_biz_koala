@@ -15,7 +15,6 @@ import swan.atom.core.base.AtomCoreBaseFragment
 import swan.biz.koala.KoalaApplicationImpl
 import swan.biz.koala.R
 import swan.biz.koala.adapter.item.MztSortedListBodyItem
-import swan.biz.koala.network.IMzituRequestService
 import swan.biz.koala.vm.MztMasterMixTopicViewModel
 
 /**
@@ -24,8 +23,6 @@ import swan.biz.koala.vm.MztMasterMixTopicViewModel
 class MztMasterMixTopicFragment : AtomCoreBaseFragment(), SmoothRefreshLayout.OnRefreshListener, GreedoLayoutSizeCalculator.SizeCalculatorDelegate {
 
     var fastItemAdapter: FastItemAdapter<MztSortedListBodyItem>? = null
-
-    var ratio: MutableList<Double> = mutableListOf<Double>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
@@ -57,17 +54,12 @@ class MztMasterMixTopicFragment : AtomCoreBaseFragment(), SmoothRefreshLayout.On
         super.onActivityCreated(savedInstanceState)
 
         val masterGalaxyViewModel: MztMasterMixTopicViewModel? = obtainViewModel(MztMasterMixTopicViewModel::class.java)
-        masterGalaxyViewModel?.category?.observe(this, android.arch.lifecycle.Observer {
-            onRefreshBegin(true)
-        })
-
         masterGalaxyViewModel?.dataCenter?.observe(this, android.arch.lifecycle.Observer {
             val items: MutableList<MztSortedListBodyItem> = mutableListOf()
             it?.postList?.map {
                 items.add(MztSortedListBodyItem(it))
             }
 
-            masterGalaxyViewModel.clearAdapterItemDataWhenFirstPage(fastItemAdapter)
             fastItemAdapter?.add(items)
 
             mixTopicRefreshContainer.setDisableLoadMore(! it?.pageNavigationHasNext!!)
@@ -77,7 +69,7 @@ class MztMasterMixTopicFragment : AtomCoreBaseFragment(), SmoothRefreshLayout.On
 
     override fun fragmentOnFirstVisibleToUser() {
         val masterGalaxyViewModel: MztMasterMixTopicViewModel? = obtainViewModel(MztMasterMixTopicViewModel::class.java)
-        masterGalaxyViewModel?.setCategoryValue(IMzituRequestService.CATEGORY.TOPIC)
+        masterGalaxyViewModel?.loadDataCenter(true)
     }
 
     override fun onRefreshBegin(isRefresh: Boolean) {
@@ -92,10 +84,6 @@ class MztMasterMixTopicFragment : AtomCoreBaseFragment(), SmoothRefreshLayout.On
     }
 
     override fun aspectRatioForIndex(index: Int): Double {
-//        var r: Double? = ratio.getOrNull(index)
-//        r = r ?: (Random().nextInt(25) + 55.0) / 100
-//        ratio.add(index, r)
-//        return r
         return 1.0
     }
 }

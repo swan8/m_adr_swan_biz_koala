@@ -15,11 +15,13 @@ interface IMzituRequestService {
 
         const val BASE_URL = "http://www.mzitu.com/"
 
-        const val API_PAGE = "page/{page}"
+        const val API_PAGE = "page/{page}/"
 
         const val API_COMMENT_PAGE = "comment-page-{page}"
 
         const val BASE_PATH = "{category}/${IMzituRequestService.API_PAGE}"
+
+        const val BASE_PATH_NO_PAGE = "{category}/"
 
         const val BASE_COMMENT_PATH = "{category}/${IMzituRequestService.API_COMMENT_PAGE}"
 
@@ -38,7 +40,7 @@ interface IMzituRequestService {
 
             const val MM: String = "mm"
 
-            const val SEXY: String = "xinggan"
+            const val SEXY: String = "xinggan" // no cache-control
 
             const val JAPAN: String = "japan"
 
@@ -46,7 +48,7 @@ interface IMzituRequestService {
 
             const val SELFIE: String = "zipai"
 
-            const val TOPIC: String = "zhuanti"
+            const val TOPIC: String = "zhuanti" // no cache-control
         }
     }
 
@@ -56,17 +58,17 @@ interface IMzituRequestService {
             @Path(IMzituApiField.page) page: Int
     ): Observable<String>
 
+    @GET(IMzituRequestService.BASE_PATH_NO_PAGE)
+    fun postRequestMztPagePath(
+            @Path(IMzituApiField.category) category: String
+    ): Observable<String>
+
     @GET(IMzituRequestService.BASE_COMMENT_PATH)
     fun postRequestMztCommentPagePath(
             @Path(IMzituApiField.category) category: String,
             @Path(IMzituApiField.page) page: Int
     ): Observable<String>
 
-    @GET(IMzituRequestService.API_IMAGE_LIST)
-    fun postRequestMzituImageList(
-            @Path(IMzituApiField.imageId) imageId: String,
-            @Path(IMzituApiField.page) page: Int
-    ): Observable<String>
 
     @GET(IMzituRequestService.BASE_PATH)
     fun postRequestMztPagePathData(

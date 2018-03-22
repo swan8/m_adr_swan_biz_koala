@@ -2,7 +2,6 @@ package swan.biz.koala.vm
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
 import org.jsoup.Jsoup
 import swan.atom.core.base.AtomCoreBaseSchedulerTransformer
 import swan.biz.koala.model.MztDataCenter
@@ -15,35 +14,12 @@ import swan.biz.koala.network.MzituRequestDelegate
  */
 class MztMasterMixTopicViewModel : ViewModel() {
 
-    var pageNo: Int = 1
-        private set
-
     var dataCenter: MutableLiveData<MztDataCenter> = MutableLiveData<MztDataCenter>()
         private set
 
-    var category: MutableLiveData<String> = MutableLiveData<String>()
-        private set
-
-    fun setCategoryValue(vaule: String) {
-        category.value = vaule
-    }
-
-    fun clearAdapterItemDataWhenFirstPage(adapter: FastItemAdapter<*>?): Unit {
-        when (pageNo) {
-            1 -> adapter?.clear()
-        }
-    }
-
     fun loadDataCenter(isRefresh: Boolean) {
-        when (isRefresh) {
-            true -> pageNo = 1
-            false -> ++ pageNo
-        }
-
-        MzituRequestDelegate.requestService().postRequestMztPagePath(
-                category.value ?: IMzituRequestService.CATEGORY.TOPIC,
-                pageNo
-        ).compose(AtomCoreBaseSchedulerTransformer())
+        MzituRequestDelegate.requestService().postRequestMztPagePath(IMzituRequestService.CATEGORY.TOPIC)
+                .compose(AtomCoreBaseSchedulerTransformer())
                 .subscribe({
                     val dataCenter: MztDataCenter = MztDataCenter()
                     it.let {

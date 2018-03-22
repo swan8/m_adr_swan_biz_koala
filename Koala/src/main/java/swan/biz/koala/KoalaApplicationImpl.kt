@@ -3,10 +3,13 @@ package swan.biz.koala
 import android.app.Application
 import android.content.Context
 import android.content.res.Resources
+import com.facebook.cache.disk.DiskCacheConfig
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory
 import com.github.ajalt.timberkt.Timber
 import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.logging.HttpLoggingInterceptor
 import swan.atom.core.basectx.SwanAtomBaseApplication
 import java.lang.ref.WeakReference
 
@@ -41,17 +44,26 @@ class KoalaApplicationImpl: SwanAtomBaseApplication.SwanAtomApplicationImpl {
 
         Timber.plant(Timber.DebugTree())
 
-        Fresco.initialize(
-                application.applicationContext,
+        Fresco.initialize(application.applicationContext,
                 OkHttpImagePipelineConfigFactory
-                        .newBuilder(
-                                application.applicationContext,
+                        .newBuilder(application.applicationContext,
                                 OkHttpClient.Builder()
+                                        .addInterceptor(HttpLoggingInterceptor(HttpLoggingInterceptor.Logger {
+                                            Timber.e { it }
+                                        }).setLevel(HttpLoggingInterceptor.Level.HEADERS))
                                         .addInterceptor({
-                                            it.proceed(it.request().newBuilder().addHeader("Referer", "http://www.mzitu.com/").build())
-                                        })
+                                            val builder: Request.Builder = it.request().newBuilder()
+                                            it.proceed(builder.addHeader("Referer", "http://www.mzitu.com/").build())
+                                        }).build()
+                        ).setMainDiskCacheConfig(
+                                DiskCacheConfig.newBuilder(application)
+                                        .setBaseDirectoryName("images")
+                                        .setBaseDirectoryPathSupplier { application.obbDir }
+                                        .setMaxCacheSize(50.times(1024).times(1024))
+                                        .setMaxCacheSizeOnLowDiskSpace(20.times(1024).times(1024))
+                                        .setMaxCacheSizeOnVeryLowDiskSpace(15.times(1024).times(1024))
                                         .build()
-                        ).build()
+                        ).setDownsampleEnabled(true).build()
         )
     }
 
