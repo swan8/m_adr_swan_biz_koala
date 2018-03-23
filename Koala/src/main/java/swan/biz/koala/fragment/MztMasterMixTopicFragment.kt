@@ -68,14 +68,13 @@ class MztMasterMixTopicFragment : AtomCoreBaseFragment(), SmoothRefreshLayout.On
     }
 
     override fun fragmentOnFirstVisibleToUser() {
-        val masterGalaxyViewModel: MztMasterMixTopicViewModel? = obtainViewModel(MztMasterMixTopicViewModel::class.java)
-        masterGalaxyViewModel?.loadDataCenter(true)
+        onRefreshBegin(true)
     }
 
     override fun onRefreshBegin(isRefresh: Boolean) {
         activity?.let {
             val masterGalaxyViewModel: MztMasterMixTopicViewModel? = obtainViewModel(MztMasterMixTopicViewModel::class.java)
-            masterGalaxyViewModel?.loadDataCenter(isRefresh)
+            masterGalaxyViewModel?.postRequestDataCenter(isRefresh)
         }
     }
 

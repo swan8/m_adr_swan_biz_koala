@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PagerSnapHelper
-import com.github.ajalt.timberkt.Timber
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
 import kotlinx.android.synthetic.main.mzt_post.*
 import me.dkzwm.widget.srl.SmoothRefreshLayout
@@ -56,15 +55,12 @@ class MztPostActivity : AtomCoreBaseActivity(), SmoothRefreshLayout.OnRefreshLis
         }
 
         val postViewModel: MztPostViewModel = obtainViewModel(MztPostViewModel::class.java)
+        postViewModel.resetMasterSortedCategory(postId!!)
         postViewModel.dataCenter.observe(this, android.arch.lifecycle.Observer {
             it?.image?.let {
                 val items: MutableList<MztPostBodyItem> = mutableListOf()
                 items.add(MztPostBodyItem(it))
                 fastItemAdapter?.add(items)
-            }
-
-            Timber.e {
-                "pageNavigationHasNext::${it?.pageNavigationHasNext}, pageNo::${postViewModel.pageNo}"
             }
 
             postRefreshContainer.setDisableLoadMore(! it?.pageNavigationHasNext!!)
@@ -89,7 +85,7 @@ class MztPostActivity : AtomCoreBaseActivity(), SmoothRefreshLayout.OnRefreshLis
 
     override fun onRefreshBegin(isRefresh: Boolean) {
         val postViewModel: MztPostViewModel = obtainViewModel(MztPostViewModel::class.java)
-        postViewModel.loadDataCenter(postId!!, isRefresh)
+        postViewModel.postRequestDataCenter(isRefresh)
     }
 
     override fun onRefreshComplete(isSuccessful: Boolean) {

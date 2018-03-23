@@ -53,17 +53,6 @@ interface IMzituRequestService {
     }
 
     @GET(IMzituRequestService.BASE_PATH)
-    fun postRequestMztPagePath(
-            @Path(IMzituApiField.category) category: String,
-            @Path(IMzituApiField.page) page: Int
-    ): Observable<String>
-
-    @GET(IMzituRequestService.BASE_PATH_NO_PAGE)
-    fun postRequestMztPagePath(
-            @Path(IMzituApiField.category) category: String
-    ): Observable<String>
-
-    @GET(IMzituRequestService.BASE_PATH)
     fun postRequestMztPagePathData(
             @Path(IMzituApiField.category) category: String,
             @Path(IMzituApiField.page) page: Int

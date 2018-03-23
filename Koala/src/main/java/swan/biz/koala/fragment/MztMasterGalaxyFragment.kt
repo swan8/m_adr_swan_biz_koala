@@ -58,11 +58,11 @@ class MztMasterGalaxyFragment : AtomCoreBaseFragment(), SmoothRefreshLayout.OnRe
         super.onActivityCreated(savedInstanceState)
 
         val masterGalaxyViewModel: MztMasterGalaxyViewModel? = obtainViewModel(MztMasterGalaxyViewModel::class.java)
-        masterGalaxyViewModel?.galaxyCategory?.observe(this, android.arch.lifecycle.Observer {
+        masterGalaxyViewModel?.category?.observe(this, android.arch.lifecycle.Observer {
             onRefreshBegin(true)
         })
 
-        masterGalaxyViewModel?.galaxyDataCenter?.observe(this, android.arch.lifecycle.Observer {
+        masterGalaxyViewModel?.dataCenter?.observe(this, android.arch.lifecycle.Observer {
             val items: MutableList<MztSortedListBodyItem> = mutableListOf()
             it?.postList?.map {
                 items.add(MztSortedListBodyItem(it))
@@ -78,13 +78,13 @@ class MztMasterGalaxyFragment : AtomCoreBaseFragment(), SmoothRefreshLayout.OnRe
 
     override fun fragmentOnFirstVisibleToUser() {
         val masterGalaxyViewModel: MztMasterGalaxyViewModel? = obtainViewModel(MztMasterGalaxyViewModel::class.java)
-        masterGalaxyViewModel?.setGalazyCategoryValue(IMzituRequestService.CATEGORY.MM)
+        masterGalaxyViewModel?.resetMasterSortedCategory(IMzituRequestService.CATEGORY.MM)
     }
 
     override fun onRefreshBegin(isRefresh: Boolean) {
         activity?.let {
             val masterGalaxyViewModel: MztMasterGalaxyViewModel? = obtainViewModel(MztMasterGalaxyViewModel::class.java)
-            masterGalaxyViewModel?.loadGalaxyDataCenter(isRefresh)
+            masterGalaxyViewModel?.postRequestDataCenter(isRefresh)
         }
     }
 
@@ -94,8 +94,13 @@ class MztMasterGalaxyFragment : AtomCoreBaseFragment(), SmoothRefreshLayout.OnRe
 
     override fun aspectRatioForIndex(index: Int): Double {
         var r: Double? = ratio.getOrNull(index)
-        r = r ?: (Random().nextInt(25) + 55.0) / 100
+        r?.let {
+            return it
+        }
+
+        r = (Random().nextInt(25) + 55.0) / 100
         ratio.add(index, r)
+
         return r
     }
 }

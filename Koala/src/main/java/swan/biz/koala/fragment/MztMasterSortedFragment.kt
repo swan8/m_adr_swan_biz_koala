@@ -57,7 +57,11 @@ class MztMasterSortedFragment : AtomCoreBaseFragment(), SmoothRefreshLayout.OnRe
             it.addOnItemTouchListener(RecyclerItemClickListener(context!!, object: RecyclerItemClickListener.SimpleOnItemClickListener() {
 
                 override fun onItemClick(childView: View?, position: Int) {
-                    MztPostActivity.newInstance(activity as AtomCoreBaseActivity, "125838")
+                    fastItemAdapter?.getAdapterItem(position)?.let {
+                        it.src?.unitId?.run {
+                            MztPostActivity.newInstance(activity as AtomCoreBaseActivity, this)
+                        }
+                    }
                 }
             }))
         }

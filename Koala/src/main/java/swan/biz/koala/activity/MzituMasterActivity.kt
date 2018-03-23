@@ -80,10 +80,10 @@ class MzituMasterActivity: AtomCoreBaseActivity() {
                             MztMasterTabAdapter.POSITION.CATEGORY -> {
                                 val masterGalaxyViewModel: MztMasterGalaxyViewModel = obtainViewModel(MztMasterGalaxyViewModel::class.java)
                                 when (which) {
-                                    0 -> masterGalaxyViewModel.setGalazyCategoryValue(IMzituRequestService.CATEGORY.MM)
-                                    1 -> masterGalaxyViewModel.setGalazyCategoryValue(IMzituRequestService.CATEGORY.SEXY)
-                                    2 -> masterGalaxyViewModel.setGalazyCategoryValue(IMzituRequestService.CATEGORY.JAPAN)
-                                    3 -> masterGalaxyViewModel.setGalazyCategoryValue(IMzituRequestService.CATEGORY.TW)
+                                    0 -> masterGalaxyViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.MM)
+                                    1 -> masterGalaxyViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.SEXY)
+                                    2 -> masterGalaxyViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.JAPAN)
+                                    3 -> masterGalaxyViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.TW)
                                 }
                             }
                         }
