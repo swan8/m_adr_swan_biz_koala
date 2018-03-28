@@ -1,17 +1,13 @@
 package swan.biz.koala.activity
 
 import android.content.Intent
-import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.PagerSnapHelper
+import android.support.design.widget.BottomSheetBehavior
+import android.view.View
+import android.widget.LinearLayout
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
 import kotlinx.android.synthetic.main.mzt_post.*
-import me.dkzwm.widget.srl.SmoothRefreshLayout
-import me.dkzwm.widget.srl.extra.footer.MaterialFooter
-import me.dkzwm.widget.srl.extra.header.MaterialHeader
-import me.dkzwm.widget.srl.indicator.DefaultIndicator
-import me.dkzwm.widget.srl.utils.PixelUtl
 import swam.atom.core.extensions.obtainViewModel
 import swan.atom.core.base.AtomCoreBaseActivity
 import swan.biz.koala.R
@@ -23,7 +19,7 @@ import swan.biz.koala.vm.MztPostViewModel
 /**
  * Created by stephen on 18-3-19.
  */
-class MztPostActivity : AtomCoreBaseActivity(), SmoothRefreshLayout.OnRefreshListener {
+class MztPostActivity : AtomCoreBaseActivity() {
 
     companion object {
 
@@ -44,14 +40,26 @@ class MztPostActivity : AtomCoreBaseActivity(), SmoothRefreshLayout.OnRefreshLis
 
         postId = intent.getStringExtra(IMzituApiField.postId)
 
-        postRecyclerContainer.let {
-            it.layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
-            it.setHasFixedSize(true)
+        postImage.setOnPhotoTapListener {
+            view, x, y -> kotlin.run {
+                val behavior: BottomSheetBehavior<LinearLayout> = BottomSheetBehavior.from(postMasterPostMetaContainer)
+                when (behavior.state) {
+                    BottomSheetBehavior.STATE_EXPANDED ->
+                            behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                    BottomSheetBehavior.STATE_COLLAPSED ->
+                            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                }
 
-            PagerSnapHelper().attachToRecyclerView(it)
+                behavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                    override fun onStateChanged(bottomSheet: View, newState: Int) {
 
-            fastItemAdapter = FastItemAdapter<MztPostBodyItem>()
-            it.adapter = fastItemAdapter
+                    }
+
+                    override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
+                    }
+                })
+            }
         }
 
         val postViewModel: MztPostViewModel = obtainViewModel(MztPostViewModel::class.java)
@@ -61,35 +69,15 @@ class MztPostActivity : AtomCoreBaseActivity(), SmoothRefreshLayout.OnRefreshLis
                 val items: MutableList<MztPostBodyItem> = mutableListOf()
                 items.add(MztPostBodyItem(it))
                 fastItemAdapter?.add(items)
-            }
 
-            postRefreshContainer.setDisableLoadMore(! it?.pageNavigationHasNext!!)
-            postRefreshContainer.refreshComplete()
+                postImage.setPhotoUri(Uri.parse(it.image))
+
+                postMasterPostTitle.text = it.title
+                postMasterPostCreateTime.text = it.time
+            }
         })
 
-        postRefreshContainer.let {
-            val header = MaterialHeader<DefaultIndicator>(this)
-            header.setColorSchemeColors(intArrayOf(Color.RED, Color.BLUE, Color.GREEN, Color.BLACK))
-            header.setPadding(PixelUtl.dp2px(this, 25f), 0, PixelUtl.dp2px(this, 25f), 0)
-            it.setHeaderView(header)
-
-            val footer = MaterialFooter<DefaultIndicator>(this)
-            footer.setProgressBarColors(intArrayOf(Color.RED, Color.BLUE, Color.GREEN, Color.BLACK))
-            it.setFooterView(footer)
-
-            it.setOnRefreshListener(this)
-            it.setDisableLoadMore(true)
-            it.autoRefresh()
-        }
-    }
-
-    override fun onRefreshBegin(isRefresh: Boolean) {
-        val postViewModel: MztPostViewModel = obtainViewModel(MztPostViewModel::class.java)
-        postViewModel.postRequestDataCenter(isRefresh)
-    }
-
-    override fun onRefreshComplete(isSuccessful: Boolean) {
-
+        postViewModel.postRequestDataCenter(true)
     }
 
 }

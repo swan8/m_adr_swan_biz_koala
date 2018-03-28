@@ -8,6 +8,9 @@ class MztPost : MztUnit() {
     var time: String? = null
 
     var view: String? = null
+        set(value) {
+            field = value?.replace("\\D+".toRegex(), "")
+        }
 
     var category: String? = null
 

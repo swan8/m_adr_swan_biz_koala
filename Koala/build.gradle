@@ -49,6 +49,7 @@ android {
 dependencies {
 
     implementation "${nice.SrfExtHorizontal}"
+    implementation "${nice.PhotoDraweeView}"
 
     implementation "${swan.AtomCore}"
 }
