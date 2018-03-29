@@ -31,15 +31,15 @@
                 android:id="@+id/postMasterPostMetaContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#99000000"
                 android:orientation="vertical"
                 app:behavior_hideable="true"
-                app:behavior_peekHeight="128dp"
+                app:behavior_peekHeight="96dp"
                 app:layout_behavior="@string/bottom_sheet_behavior">
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="96dp"
-                    android:background="#99000000"
                     android:paddingEnd="16dp"
                     android:paddingStart="16dp">
 
@@ -61,7 +61,6 @@
                         style="@style/AtomCoreStyle.WhiteSmallText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
                         android:gravity="center_vertical"
                         android:singleLine="true"
                         app:layout_constraintBottom_toTopOf="@+id/postMasterPostTitleDivider"
@@ -84,10 +83,10 @@
                     <TextView
                         android:id="@+id/postMasterTakePageNavigation"
                         style="@style/AtomCoreStyle.WhiteNormalText"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:gravity="center_vertical"
+                        android:background="@drawable/mzt_post_master_take_page_navigation"
+                        android:gravity="center"
                         android:singleLine="true"
                         android:text="@string/mzt_resStringPostMasterTakePageNavigation"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -96,9 +95,9 @@
 
                 <!-- Bottom Sheet: Page Navigation -->
                 <android.support.v7.widget.RecyclerView
+                    android:id="@+id/postMasterNavigationContainer"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="@android:color/holo_orange_dark" />
+                    android:layout_height="128dp" />
             </LinearLayout>
 
         </android.support.design.widget.CoordinatorLayout>

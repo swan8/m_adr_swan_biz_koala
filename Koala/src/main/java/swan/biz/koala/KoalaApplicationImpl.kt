@@ -3,9 +3,11 @@ package swan.biz.koala
 import android.app.Application
 import android.content.Context
 import android.content.res.Resources
+import android.graphics.Bitmap
 import com.facebook.cache.disk.DiskCacheConfig
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory
+import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig
 import com.github.ajalt.timberkt.Timber
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -63,7 +65,11 @@ class KoalaApplicationImpl: SwanAtomBaseApplication.SwanAtomApplicationImpl {
                                         .setMaxCacheSizeOnLowDiskSpace(20.times(1024).times(1024))
                                         .setMaxCacheSizeOnVeryLowDiskSpace(15.times(1024).times(1024))
                                         .build()
-                        ).setDownsampleEnabled(true).build()
+                        )
+                        .setDownsampleEnabled(true)
+                        .setProgressiveJpegConfig(SimpleProgressiveJpegConfig())
+                        .setBitmapsConfig(Bitmap.Config.RGB_565)
+                        .build()
         )
     }
 

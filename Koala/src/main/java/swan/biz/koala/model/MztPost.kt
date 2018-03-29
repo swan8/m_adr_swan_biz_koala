@@ -6,6 +6,9 @@ package swan.biz.koala.model
 class MztPost : MztUnit() {
 
     var time: String? = null
+        set(value) {
+            field = value?.replace("[\\u4E00-\\u9FA5]+\\s".toRegex(), "")
+}
 
     var view: String? = null
         set(value) {

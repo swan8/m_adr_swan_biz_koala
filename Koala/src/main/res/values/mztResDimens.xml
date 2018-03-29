@@ -3,6 +3,7 @@
 
     <dimen name="mzt_resDimensGreedoDefaultRowHeight">320dp</dimen>
     <dimen name="mzt_resDimensGreedoDefaultRowHeightSquare">144dp</dimen>
+    <dimen name="mzt_resDimensGreedoDefaultRowHeight36">36dp</dimen>
     <dimen name="mzt_resDimensGreedoDefaultSpacing">2dp</dimen>
 
 </resources>

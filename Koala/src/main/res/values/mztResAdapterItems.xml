@@ -3,6 +3,6 @@
 
     <item type="id" name="mzt_resAdapterItem_AlbumList" />
 
-    <item type="id" name="mzt_resAdapterItem_PostBody" />
+    <item type="id" name="mzt_resAdapterItem_PostMasterNavigationBody" />
 
 </resources>
