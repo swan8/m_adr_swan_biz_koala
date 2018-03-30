@@ -112,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:gravity="center"
-                android:text="{ATOM-CORE-CATEGORY}" />
+                android:text="{ATOM_CORE_CATEGORY}" />
         </LinearLayout>
     </android.support.design.widget.AppBarLayout>
 

@@ -4,17 +4,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.LinearLayout
-import com.fivehundredpx.greedolayout.GreedoLayoutManager
-import com.fivehundredpx.greedolayout.GreedoLayoutSizeCalculator
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
 import kotlinx.android.synthetic.main.mzt_post.*
 import swam.atom.core.extensions.obtainViewModel
 import swan.atom.core.base.AtomCoreBaseActivity
-import swan.biz.koala.KoalaApplicationImpl
 import swan.biz.koala.R
 import swan.biz.koala.RecyclerItemClickListener
 import swan.biz.koala.adapter.item.MztPostMasterNavigationItem
@@ -46,41 +42,21 @@ class MztPostActivity : AtomCoreBaseActivity() {
 
         postId = intent.getStringExtra(IMzituApiField.postId)
 
+        postMasterTakePageNavigation.setOnClickListener(this)
         postImage.setOnPhotoTapListener { view, x, y ->
-            val behavior: BottomSheetBehavior<LinearLayout> = BottomSheetBehavior.from(postMasterPostMetaContainer)
-            behavior.setSkipCollapsed(false);
-            when (behavior.state) {
-                BottomSheetBehavior.STATE_EXPANDED ->
-                        behavior.state = BottomSheetBehavior.STATE_COLLAPSED
-                BottomSheetBehavior.STATE_COLLAPSED ->
-                        behavior.state = BottomSheetBehavior.STATE_EXPANDED
-            }
-
-            behavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-
-                }
-
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {
-
-                }
-            })
+            
         }
 
         fastItemAdapter = FastItemAdapter<MztPostMasterNavigationItem>()
         postMasterNavigationContainer.adapter = fastItemAdapter
 
-        postMasterNavigationContainer.layoutManager = GridLayoutManager(applicationContext, 8, RecyclerView.VERTICAL, false)
-//        postMasterNavigationContainer.layoutManager = GridLayoutManager(applicationContext, 3, RecyclerView.HORIZONTAL, false)
-
-//        var layoutManager: GreedoLayoutManager = GreedoLayoutManager(GreedoLayoutSizeCalculator.SizeCalculatorDelegate { 1.0 })
-//        layoutManager.setMaxRowHeight(KoalaApplicationImpl.getDimensionPixelOffset(R.dimen.mzt_resDimensGreedoDefaultRowHeight36))
-//
-//        postMasterNavigationContainer.layoutManager = layoutManager
+        postMasterNavigationContainer.layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
         postMasterNavigationContainer.addOnItemTouchListener(RecyclerItemClickListener(applicationContext, object: RecyclerItemClickListener.SimpleOnItemClickListener() {
 
             override fun onItemClick(childView: View?, position: Int) {
-
+                val postViewModel: MztPostViewModel = obtainViewModel(MztPostViewModel::class.java)
+                postViewModel.pageNo = position + 1
+                postViewModel.postRequestDataCenter(false)
             }
         }))
 
@@ -88,16 +64,18 @@ class MztPostActivity : AtomCoreBaseActivity() {
         postViewModel.resetMasterSortedCategory(postId!!)
         postViewModel.dataCenter.observe(this, android.arch.lifecycle.Observer {
             it?.image?.let {
+                postImage.minimumScale = 0.8f
                 postImage.setPhotoUri(Uri.parse(it.image))
 
                 postMasterPostTitle.text = it.title
-                postMasterPostCreateTime.text = it.time
+                postMasterPostCreateTime.text = getString(R.string.mzt_resStringPostCreateAt, it.time)
             }
 
             it?.pageNavigationLastNumber?.let {
                 val items: MutableList<MztPostMasterNavigationItem> = mutableListOf()
                 for (i in 1 .. it.toInt()) {
                     items.add(MztPostMasterNavigationItem(it))
+//                    fastItemAdapter?.add(MztPostMasterNavigationItem(it))
                 }
 
                 fastItemAdapter?.set(items)
@@ -107,4 +85,27 @@ class MztPostActivity : AtomCoreBaseActivity() {
         postViewModel.postRequestDataCenter(true)
     }
 
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.postMasterTakePageNavigation -> {
+                val behavior: BottomSheetBehavior<LinearLayout> = BottomSheetBehavior.from(postMasterPostMetaContainer)
+                when (behavior.state) {
+                    BottomSheetBehavior.STATE_EXPANDED ->
+                        behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                    BottomSheetBehavior.STATE_COLLAPSED ->
+                        behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                }
+
+                behavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                    override fun onStateChanged(bottomSheet: View, newState: Int) {
+
+                    }
+
+                    override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
+                    }
+                })
+            }
+        }
+    }
 }

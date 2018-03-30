@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,97 +11,170 @@
         android:id="@+id/postImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:failureImageScaleType="centerInside"
-        app:placeholderImageScaleType="centerCrop"
-        app:progressBarAutoRotateInterval="1000"
-        app:progressBarImageScaleType="centerInside" />
+        fresco:failureImageScaleType="centerInside"
+        fresco:placeholderImageScaleType="centerCrop"
+        fresco:progressBarAutoRotateInterval="1000"
+        fresco:progressBarImageScaleType="centerInside" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="#CCFFFFFF"
+        android:visibility="gone" />
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/postMasterPanelControlContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="48dp"
+        android:background="@drawable/atom_core_base_shape_black_gradient_down"
+        android:paddingEnd="8dp"
+        android:paddingStart="8dp">
 
+        <com.joanzapata.iconify.widget.IconTextView
+            style="@style/AtomCoreStyle.WhiteContentTitleText"
+            android:layout_width="36dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="{ATOM_CORE_BACK}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Back" />
 
-        <android.support.design.widget.CoordinatorLayout
+        <TextView
+            android:id="@+id/postMasterPageIndicate"
+            style="@style/AtomCoreStyle.WhiteNormalText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:maxLength="10"
+            android:maxLines="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1/30" />
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:id="@+id/postMasterPostShare"
+            style="@style/AtomCoreStyle.WhiteBigText"
+            android:layout_width="36dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="{ATOM_CORE_SHARE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/postMasterPostDownload"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="S" />
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:id="@+id/postMasterPostDownload"
+            style="@style/AtomCoreStyle.WhiteBigText"
+            android:layout_width="36dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="{ATOM_CORE_DOWNLOAD}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="D" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/postMasterPostMetaContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/atom_core_base_shape_black_gradient_up"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:behavior_hideable="false"
+            app:behavior_peekHeight="96dp"
+            app:layout_behavior="@string/bottom_sheet_behavior">
 
-            <LinearLayout
-                android:id="@+id/postMasterPostMetaContainer"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#99000000"
-                android:orientation="vertical"
-                app:behavior_hideable="true"
-                app:behavior_peekHeight="96dp"
-                app:layout_behavior="@string/bottom_sheet_behavior">
+                android:layout_height="96dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp">
 
-                <android.support.constraint.ConstraintLayout
+                <ImageView
+                    android:id="@+id/postMasterPostTitleDivider"
                     android:layout_width="match_parent"
-                    android:layout_height="96dp"
-                    android:paddingEnd="16dp"
-                    android:paddingStart="16dp">
+                    android:layout_height="1px"
+                    android:layout_marginTop="8dp"
+                    android:scaleType="fitXY"
+                    android:src="#ccc"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.5" />
 
-                    <ImageView
-                        android:id="@+id/postMasterPostTitleDivider"
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:layout_marginTop="8dp"
-                        android:scaleType="fitXY"
-                        android:src="#ccc"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.5" />
-
-                    <TextView
-                        android:id="@+id/postMasterPostTitle"
-                        style="@style/AtomCoreStyle.WhiteSmallText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:singleLine="true"
-                        app:layout_constraintBottom_toTopOf="@+id/postMasterPostTitleDivider"
-                        app:layout_constraintTop_toBottomOf="@+id/postMasterPostCreateTime"
-                        app:layout_constraintVertical_chainStyle="spread"
-                        tools:text="postMasterPostTitle" />
-
-                    <TextView
-                        android:id="@+id/postMasterPostCreateTime"
-                        style="@style/AtomCoreStyle.WhiteSmallText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:singleLine="true"
-                        app:layout_constraintBottom_toTopOf="@+id/postMasterPostTitle"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="postMasterPostTitle" />
-
-                    <TextView
-                        android:id="@+id/postMasterTakePageNavigation"
-                        style="@style/AtomCoreStyle.WhiteNormalText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/mzt_post_master_take_page_navigation"
-                        android:gravity="center"
-                        android:singleLine="true"
-                        android:text="@string/mzt_resStringPostMasterTakePageNavigation"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/postMasterPostTitleDivider" />
-                </android.support.constraint.ConstraintLayout>
-
-                <!-- Bottom Sheet: Page Navigation -->
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/postMasterNavigationContainer"
+                <TextView
+                    android:id="@+id/postMasterPostTitle"
+                    style="@style/AtomCoreStyle.WhiteSmallText"
                     android:layout_width="match_parent"
-                    android:layout_height="128dp" />
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    app:layout_constraintBottom_toTopOf="@+id/postMasterPostTitleDivider"
+                    app:layout_constraintTop_toBottomOf="@+id/postMasterPostCreateTime"
+                    app:layout_constraintVertical_chainStyle="spread"
+                    tools:text="postMasterPostTitle" />
 
-        </android.support.design.widget.CoordinatorLayout>
+                <com.joanzapata.iconify.widget.IconTextView
+                    android:id="@+id/postMasterPostCreateTime"
+                    style="@style/AtomCoreStyle.WhiteSmallText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    app:layout_constraintBottom_toTopOf="@+id/postMasterPostTitle"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="postMasterPostTitle" />
 
-    </android.support.constraint.ConstraintLayout>
+                <com.joanzapata.iconify.widget.IconTextView
+                    android:id="@+id/postMasterPostFavorite"
+                    style="@style/AtomCoreStyle.WhiteBigText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="{ATOM_CORE_FAVORITE_HEART}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/postMasterPostTitleDivider" />
+
+                <com.joanzapata.iconify.widget.IconTextView
+                    android:id="@+id/postMasterTakePageNavigation"
+                    style="@style/AtomCoreStyle.WhiteSmallText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/mzt_post_master_take_page_navigation"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="@string/mzt_resStringPostMasterTakePageNavigation"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/postMasterPostTitleDivider" />
+            </android.support.constraint.ConstraintLayout>
+
+            <!-- Bottom Sheet: Page Navigation -->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/postMasterNavigationContainer"
+                android:layout_width="match_parent"
+                android:layout_height="64dp" />
+        </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
+
 </FrameLayout>

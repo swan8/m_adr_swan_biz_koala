@@ -7,5 +7,6 @@
     <string name="mzt_resStringMasterTabMixSelfie">镜子</string>
     <string name="mzt_resStringMasterTabMixAxis">沙漏</string>
 
-    <string name="mzt_resStringPostMasterTakePageNavigation">查看条目</string>
+    <string name="mzt_resStringPostCreateAt">{ATOM_CORE_CLOCK}&#160;%s</string>
+    <string name="mzt_resStringPostMasterTakePageNavigation">{ATOM_CORE_VIEW_CATEGORY}&#160;查看条目</string>
 </resources>

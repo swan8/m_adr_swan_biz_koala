@@ -12,9 +12,12 @@ class MztPostViewModel : MztMasterViewModel<MztPostDataCenter>("") {
     override val initializerPageNo: Int = 1
 
     override var pageNo: Int = initializerPageNo
+        public set(value) {
+            field = value
+        }
 
     override fun postRequestSetPageNoValue(isRefresh: Boolean) {
-        postRequestPlusPageNoValue(isRefresh)
+
     }
 
     override fun postRequestGetService(category: String, pageNo: Int): Observable<MztPostDataCenter> {
