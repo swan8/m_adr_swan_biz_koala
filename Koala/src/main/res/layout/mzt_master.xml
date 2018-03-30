@@ -105,13 +105,14 @@
                     android:text="@string/mzt_resStringMasterTabMixAxis" />
             </android.support.design.widget.TabLayout>
 
-            <ImageView
+            <com.joanzapata.iconify.widget.IconTextView
+                style="@style/AtomCoreStyle.WhiteBigText"
                 android:id="@+id/masterFilterSelector"
-                android:layout_width="96dp"
+                android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:scaleType="center"
-                android:src="@drawable/mzt_ic_post_filter_selector" />
+                android:gravity="center"
+                android:text="{ATOM-CORE-CATEGORY}" />
         </LinearLayout>
     </android.support.design.widget.AppBarLayout>
 

@@ -50,6 +50,7 @@ dependencies {
 
     implementation "${nice.SrfExtHorizontal}"
     implementation "${nice.PhotoDraweeView}"
+    implementation "${nice.Iconify}"
 
     implementation "${swan.AtomCore}"
 }

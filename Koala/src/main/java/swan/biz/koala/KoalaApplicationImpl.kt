@@ -9,6 +9,7 @@ import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory
 import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig
 import com.github.ajalt.timberkt.Timber
+import com.joanzapata.iconify.Iconify
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
@@ -45,6 +46,8 @@ class KoalaApplicationImpl: SwanAtomBaseApplication.SwanAtomApplicationImpl {
         instance.context = WeakReference(application.applicationContext)
 
         Timber.plant(Timber.DebugTree())
+
+        Iconify.with(AtomCoreIconifyModule)
 
         Fresco.initialize(application.applicationContext,
                 OkHttpImagePipelineConfigFactory
