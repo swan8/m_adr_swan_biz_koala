@@ -7,7 +7,7 @@ import android.support.v7.app.AlertDialog
 import android.view.View
 import android.widget.TextView
 import kotlinx.android.synthetic.main.mzt_master.*
-import swam.atom.core.extensions.obtainViewModel
+import swan.atom.core.extensions.obtainViewModel
 import swan.atom.core.base.AtomCoreBaseActivity
 import swan.biz.koala.R
 import swan.biz.koala.adapter.MztMasterTabAdapter

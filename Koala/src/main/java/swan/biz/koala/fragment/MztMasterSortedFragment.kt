@@ -10,12 +10,12 @@ import com.fivehundredpx.greedolayout.GreedoSpacingItemDecoration
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
 import kotlinx.android.synthetic.main.mzt_master_sorted.*
 import me.dkzwm.widget.srl.SmoothRefreshLayout
-import swam.atom.core.extensions.obtainViewModel
 import swan.atom.core.base.AtomCoreBaseActivity
 import swan.atom.core.base.AtomCoreBaseFragment
+import swan.atom.core.extensions.obtainViewModel
+import swan.atom.core.listener.AtomCoreRecyclerItemClickListener
 import swan.biz.koala.KoalaApplicationImpl
 import swan.biz.koala.R
-import swan.biz.koala.RecyclerItemClickListener
 import swan.biz.koala.activity.MztPostActivity
 import swan.biz.koala.adapter.item.MztSortedListBodyItem
 import swan.biz.koala.network.IMzituRequestService
@@ -45,16 +45,16 @@ class MztMasterSortedFragment : AtomCoreBaseFragment(), SmoothRefreshLayout.OnRe
 
         masterSortedRecyclerContainer.let {
             val layoutManager = GreedoLayoutManager(this)
-            layoutManager.setMaxRowHeight(KoalaApplicationImpl.getDimensionPixelOffset(R.dimen.mzt_resDimensGreedoDefaultRowHeight))
+            layoutManager.setMaxRowHeight(KoalaApplicationImpl.getDimens(R.dimen.mzt_resDimensGreedoDefaultRowHeight))
 
             it.layoutManager = layoutManager
-            it.addItemDecoration(GreedoSpacingItemDecoration(KoalaApplicationImpl.getDimensionPixelOffset(R.dimen.mzt_resDimensGreedoDefaultSpacing)))
+            it.addItemDecoration(GreedoSpacingItemDecoration(KoalaApplicationImpl.getDimens(R.dimen.mzt_resDimensGreedoDefaultSpacing)))
             it.setHasFixedSize(true)
 
             fastItemAdapter = FastItemAdapter<MztSortedListBodyItem>()
             it.adapter = fastItemAdapter
 
-            it.addOnItemTouchListener(RecyclerItemClickListener(context!!, object: RecyclerItemClickListener.SimpleOnItemClickListener() {
+            it.addOnItemTouchListener(AtomCoreRecyclerItemClickListener(context!!, object: AtomCoreRecyclerItemClickListener.SimpleOnItemClickListener() {
 
                 override fun onItemClick(childView: View?, position: Int) {
                     fastItemAdapter?.getAdapterItem(position)?.let {

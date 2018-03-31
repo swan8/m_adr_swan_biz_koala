@@ -10,7 +10,7 @@ import com.fivehundredpx.greedolayout.GreedoSpacingItemDecoration
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
 import kotlinx.android.synthetic.main.mzt_master_mix_selfie.*
 import me.dkzwm.widget.srl.SmoothRefreshLayout
-import swam.atom.core.extensions.obtainViewModel
+import swan.atom.core.extensions.obtainViewModel
 import swan.atom.core.base.AtomCoreBaseFragment
 import swan.biz.koala.KoalaApplicationImpl
 import swan.biz.koala.R
@@ -42,10 +42,10 @@ class MztMasterMixSelfieFragment : AtomCoreBaseFragment(), SmoothRefreshLayout.O
 
         mixSelfieRecyclerContainer.let {
             val layoutManager = GreedoLayoutManager(this)
-            layoutManager.setMaxRowHeight(KoalaApplicationImpl.getDimensionPixelOffset(R.dimen.mzt_resDimensGreedoDefaultRowHeight))
+            layoutManager.setMaxRowHeight(KoalaApplicationImpl.getDimens(R.dimen.mzt_resDimensGreedoDefaultRowHeight))
 
             it.layoutManager = layoutManager
-            it.addItemDecoration(GreedoSpacingItemDecoration(KoalaApplicationImpl.getDimensionPixelOffset(R.dimen.mzt_resDimensGreedoDefaultSpacing)))
+            it.addItemDecoration(GreedoSpacingItemDecoration(KoalaApplicationImpl.getDimens(R.dimen.mzt_resDimensGreedoDefaultSpacing)))
             it.setHasFixedSize(true)
 
             fastItemAdapter = FastItemAdapter<MztSortedListBodyItem>()

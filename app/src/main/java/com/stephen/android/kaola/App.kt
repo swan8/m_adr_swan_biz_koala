@@ -1,6 +1,6 @@
 package com.stephen.android.kaola
 
-import swan.atom.core.basectx.SwanAtomBaseApplication
+import swan.atom.core.base.SwanAtomBaseApplication
 
 /**
  * Created by stephen on 09/03/2018.

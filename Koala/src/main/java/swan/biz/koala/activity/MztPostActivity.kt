@@ -9,10 +9,10 @@ import android.view.View
 import android.widget.LinearLayout
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
 import kotlinx.android.synthetic.main.mzt_post.*
-import swam.atom.core.extensions.obtainViewModel
 import swan.atom.core.base.AtomCoreBaseActivity
+import swan.atom.core.extensions.obtainViewModel
+import swan.atom.core.listener.AtomCoreRecyclerItemClickListener
 import swan.biz.koala.R
-import swan.biz.koala.RecyclerItemClickListener
 import swan.biz.koala.adapter.item.MztPostMasterNavigationItem
 import swan.biz.koala.network.IMzituApiField
 import swan.biz.koala.vm.MztPostViewModel
@@ -51,7 +51,7 @@ class MztPostActivity : AtomCoreBaseActivity() {
         postMasterNavigationContainer.adapter = fastItemAdapter
 
         postMasterNavigationContainer.layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
-        postMasterNavigationContainer.addOnItemTouchListener(RecyclerItemClickListener(applicationContext, object: RecyclerItemClickListener.SimpleOnItemClickListener() {
+        postMasterNavigationContainer.addOnItemTouchListener(AtomCoreRecyclerItemClickListener(applicationContext, object: AtomCoreRecyclerItemClickListener.SimpleOnItemClickListener() {
 
             override fun onItemClick(childView: View?, position: Int) {
                 val postViewModel: MztPostViewModel = obtainViewModel(MztPostViewModel::class.java)
