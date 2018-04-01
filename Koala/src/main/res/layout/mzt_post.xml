@@ -25,14 +25,14 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/atom_core_resDimensSpanBig"
         android:background="@drawable/atom_core_base_shape_black_gradient_down"
-        android:paddingEnd="8dp"
-        android:paddingStart="8dp">
+        android:paddingEnd="@dimen/atom_core_resDimensGapNormal"
+        android:paddingStart="@dimen/atom_core_resDimensGapNormal">
 
         <com.joanzapata.iconify.widget.IconTextView
             style="@style/AtomCoreStyle.WhiteContentTitleText"
-            android:layout_width="36dp"
+            android:layout_width="@dimen/atom_core_resDimensSpanNormal"
             android:layout_height="match_parent"
             android:gravity="center"
             android:maxLines="1"
@@ -59,7 +59,7 @@
         <com.joanzapata.iconify.widget.IconTextView
             android:id="@+id/postMasterPostShare"
             style="@style/AtomCoreStyle.WhiteBigText"
-            android:layout_width="36dp"
+            android:layout_width="@dimen/atom_core_resDimensSpanNormal"
             android:layout_height="match_parent"
             android:layout_marginEnd="8dp"
             android:gravity="center"
@@ -73,7 +73,7 @@
         <com.joanzapata.iconify.widget.IconTextView
             android:id="@+id/postMasterPostDownload"
             style="@style/AtomCoreStyle.WhiteBigText"
-            android:layout_width="36dp"
+            android:layout_width="@dimen/atom_core_resDimensSpanNormal"
             android:layout_height="match_parent"
             android:gravity="center"
             android:maxLines="1"
@@ -103,16 +103,16 @@
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="96dp"
-                android:paddingEnd="16dp"
-                android:paddingStart="16dp">
+                android:paddingEnd="@dimen/atom_core_resDimensGapBig"
+                android:paddingStart="@dimen/atom_core_resDimensGapBig">
 
                 <ImageView
                     android:id="@+id/postMasterPostTitleDivider"
                     android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="@dimen/atom_core_resDimensGapLinePX"
+                    android:layout_marginTop="@dimen/atom_core_resDimensGapNormal"
                     android:scaleType="fitXY"
-                    android:src="#ccc"
+                    android:src="@android:color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -173,8 +173,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/postMasterNavigationContainer"
                 android:layout_width="match_parent"
-                android:layout_height="64dp" />
+                android:layout_height="@dimen/atom_core_resDimensSpanHuge" />
         </LinearLayout>
     </android.support.design.widget.CoordinatorLayout>
-
 </FrameLayout>

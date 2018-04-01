@@ -25,10 +25,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/mzt_ic_post_top_golden"
-                android:drawablePadding="8dp"
+                android:drawablePadding="@dimen/atom_core_resDimensGapNormal"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:padding="8dp"
+                android:padding="@dimen/atom_core_resDimensGapNormal"
                 android:singleLine="true"
                 android:textStyle="bold" />
 
@@ -38,10 +38,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/mzt_ic_post_top_silver"
-                android:drawablePadding="8dp"
+                android:drawablePadding="@dimen/atom_core_resDimensGapNormal"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:padding="8dp"
+                android:padding="@dimen/atom_core_resDimensGapNormal"
                 android:singleLine="true" />
 
             <TextView
@@ -50,10 +50,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/mzt_ic_post_top_bronze"
-                android:drawablePadding="8dp"
+                android:drawablePadding="@dimen/atom_core_resDimensGapNormal"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:padding="8dp"
+                android:padding="@dimen/atom_core_resDimensGapNormal"
                 android:singleLine="true" />
         </LinearLayout>
 
@@ -69,11 +69,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways"
-                app:tabContentStart="16dp"
+                app:tabContentStart="@dimen/atom_core_resDimensGapBig"
                 app:tabGravity="center"
                 app:tabIndicatorColor="@android:color/holo_orange_light"
-                app:tabIndicatorHeight="1dp"
-                app:tabMaxWidth="96dp"
+                app:tabIndicatorHeight="@dimen/atom_core_resDimensGapLineDP"
+                app:tabMaxWidth="@dimen/atom_core_resDimensGapBig"
                 app:tabMode="scrollable"
                 app:tabSelectedTextColor="@android:color/holo_orange_light"
                 app:tabTextAppearance="@style/AtomCoreStyle.BlackNormalText"
@@ -108,9 +108,9 @@
             <com.joanzapata.iconify.widget.IconTextView
                 style="@style/AtomCoreStyle.WhiteBigText"
                 android:id="@+id/masterFilterSelector"
-                android:layout_width="64dp"
+                android:layout_width="@dimen/atom_core_resDimensSpanHuge"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
+                android:padding="@dimen/atom_core_resDimensGapNormal"
                 android:gravity="center"
                 android:text="{ATOM_CORE_CATEGORY}" />
         </LinearLayout>

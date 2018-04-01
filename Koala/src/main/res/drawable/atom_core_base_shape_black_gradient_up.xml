@@ -2,8 +2,8 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
     <size
-        android:width="16dp"
-        android:height="16dp" />
+        android:width="@dimen/atom_core_resDimensSpanTiny"
+        android:height="@dimen/atom_core_resDimensSpanTiny" />
 
     <gradient
         android:angle="90"

@@ -5,10 +5,7 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical"
-    android:paddingBottom="8dp"
-    android:paddingEnd="16dp"
-    android:paddingStart="16dp"
-    android:paddingTop="8dp"
+    android:padding="@dimen/atom_core_resDimensGapNormal"
     tools:background="@android:color/black">
 
     <TextView
@@ -19,7 +16,7 @@
         android:background="@drawable/mzt_post_master_take_page_navigation"
         android:gravity="center"
         android:maxLines="1"
-        android:minWidth="48dp"
+        android:minWidth="@dimen/atom_core_resDimensSpanNormal"
         android:text="@string/mzt_resStringPostMasterTakePageNavigation"
         tools:text="1" />
 </LinearLayout>

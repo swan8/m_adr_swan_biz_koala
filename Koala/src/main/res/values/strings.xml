@@ -1,3 +1,16 @@
 <resources>
+
     <string name="app_name">Koala</string>
+
+    <dimen name="atom_core_resDimensGapLinePX">1px</dimen>
+    <dimen name="atom_core_resDimensGapLineDP">1dp</dimen>
+
+    <dimen name="atom_core_resDimensSpanTiny">16dp</dimen>
+    <dimen name="atom_core_resDimensSpanSmall">24dp</dimen>
+    <dimen name="atom_core_resDimensSpanNormal">36dp</dimen>
+    <dimen name="atom_core_resDimensSpanBig">48dp</dimen>
+    <dimen name="atom_core_resDimensSpanHuge">64dp</dimen>
+    <dimen name="atom_core_resDimensSpanColossal">96dp</dimen>
+    <dimen name="atom_core_resDimensSpanGigantic">128dp</dimen>
+    <dimen name="atom_core_resDimensSpanTremendous">196dp</dimen>
 </resources>
