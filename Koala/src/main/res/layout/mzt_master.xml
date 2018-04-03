@@ -73,7 +73,7 @@
                 app:tabGravity="center"
                 app:tabIndicatorColor="@android:color/holo_orange_light"
                 app:tabIndicatorHeight="@dimen/atom_core_resDimensGapLineDP"
-                app:tabMaxWidth="@dimen/atom_core_resDimensGapBig"
+                app:tabMaxWidth="@dimen/atom_core_resDimensSpanColossal"
                 app:tabMode="scrollable"
                 app:tabSelectedTextColor="@android:color/holo_orange_light"
                 app:tabTextAppearance="@style/AtomCoreStyle.BlackNormalText"
