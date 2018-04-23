@@ -2,6 +2,8 @@
 
     <string name="app_name">Koala</string>
 
+    <color name="atom_core_resColor">#6642E695</color>
+
     <dimen name="atom_core_resDimensGapLinePX">1px</dimen>
     <dimen name="atom_core_resDimensGapLineDP">1dp</dimen>
 

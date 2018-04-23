@@ -49,4 +49,9 @@ android {
 dependencies {
 
     implementation "${swan.AtomCore}"
+
+    implementation "${google.RoomRuntime}"
+    implementation "${google.RoomRxJava2}"
+
+    annotationProcessor "${google.RoomCompiler}"
 }

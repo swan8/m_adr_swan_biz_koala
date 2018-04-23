@@ -22,6 +22,7 @@ ext {
             Ver_Goolge_Support_Constraint   : "1.0.2",
             Ver_Goolge_Support_Multidex     : "1.0.0",
             Ver_Goolge_LiftCycle            : "1.1.0",
+            Ver_Goolge_Room                 : "1.0.0",
 
             Ver_Kotlin                      : "${kotlin_version}",
 
@@ -71,6 +72,10 @@ ext {
             LifeCycleRuntim                 : "android.arch.lifecycle:runtime:${libVersions.Ver_Goolge_LiftCycle}",
             LifeCycleExtensions             : "android.arch.lifecycle:extensions:${libVersions.Ver_Goolge_LiftCycle}",
             LifeCycleCompiler               : "android.arch.lifecycle:compiler:${libVersions.Ver_Goolge_LiftCycle}",
+
+            RoomRuntime                     : "android.arch.persistence.room:runtime:${libVersions.Ver_Goolge_Room}",
+            RoomCompiler                    : "android.arch.persistence.room:compiler:${libVersions.Ver_Goolge_Room}",
+            RoomRxJava2                     : "android.arch.persistence.room:rxjava2:${libVersions.Ver_Goolge_Room}",
     ]
 
     square = [
@@ -96,9 +101,9 @@ ext {
 
     mikePenz = [ // http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mikepenz%22
 
-                 Materialize                     : "com.mikepenz:materialize:${libVersions.Ver_MikePenz_Materialize}",
-                 FastAdapter                     : "com.mikepenz:fastadapter:${libVersions.Ver_MikePenz_FastAdapter}",
-                 FastAdapterCommons              : "com.mikepenz:fastadapter-commons:${libVersions.Ver_MikePenz_FastAdapter}",
+            Materialize                     : "com.mikepenz:materialize:${libVersions.Ver_MikePenz_Materialize}",
+            FastAdapter                     : "com.mikepenz:fastadapter:${libVersions.Ver_MikePenz_FastAdapter}",
+            FastAdapterCommons              : "com.mikepenz:fastadapter-commons:${libVersions.Ver_MikePenz_FastAdapter}",
     ]
 
     nice = [
