@@ -1,5 +1,7 @@
 package swan.biz.koala.model
 
+import swan.biz.koala.database.MzPersistentTop
+
 /**
  * Created by stephen on 12/03/2018.
  */
@@ -17,7 +19,7 @@ class MztDataCenter : IMztDataCenter {
 
     var searchPlaceHolder: String? = null
 
-    var top: MutableList<MztUnit> = mutableListOf()
+    var top: MutableList<MzPersistentTop> = mutableListOf()
 
     var guess: MutableList<MztUnit> = mutableListOf()
 

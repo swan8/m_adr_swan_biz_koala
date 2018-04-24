@@ -5,13 +5,11 @@ import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AlertDialog
 import android.view.View
-import android.widget.TextView
 import kotlinx.android.synthetic.main.mzt_master.*
-import swan.atom.core.extensions.obtainViewModel
 import swan.atom.core.base.AtomCoreBaseActivity
+import swan.atom.core.extensions.obtainViewModel
 import swan.biz.koala.R
 import swan.biz.koala.adapter.MztMasterTabAdapter
-import swan.biz.koala.model.MztUnit
 import swan.biz.koala.network.IMzituRequestService
 import swan.biz.koala.vm.MztMasterGalaxyViewModel
 import swan.biz.koala.vm.MztMasterSortedViewModel
@@ -47,11 +45,6 @@ class MzituMasterActivity: AtomCoreBaseActivity() {
             it.setupWithViewPager(masterPagerContainer)
             it.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(masterPagerContainer))
         }
-
-        val masterSortedViewModel: MztMasterSortedViewModel = obtainViewModel(MztMasterSortedViewModel::class.java)
-        masterSortedViewModel.dataCenter.observe(this, android.arch.lifecycle.Observer {
-            resetMasterTopLayout(it?.top)
-        })
     }
 
     override fun onClick(v: View?) {
@@ -92,18 +85,4 @@ class MzituMasterActivity: AtomCoreBaseActivity() {
             } else -> super.onClick(v)
         }
     }
-
-    private fun resetMasterTopLayout(top: MutableList<MztUnit>?): Unit {
-        val textViews: Array<TextView> = arrayOf(
-                masterPostTopGolden, masterPostTopSilver, masterPostTopBronze
-        )
-
-        top?.indices?.forEach {
-            if (it < textViews.size) {
-                textViews[it].text = top[it].title
-                textViews[it].setOnClickListener(this@MzituMasterActivity)
-            }
-        }
-    }
-
 }

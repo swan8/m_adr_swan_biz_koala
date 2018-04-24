@@ -54,9 +54,9 @@ class IMztNodeField {
 
         const val WIDGET_LIKE: String = "dl#like"
 
-        const val WIDGET_LIKE_GUESS: String = WIDGET_LIKE + " dd:not(dd.no)"
+        const val WIDGET_LIKE_GUESS: String = "${IMztNodeField.WIDGET_LIKE} dd:not(dd.no)"
 
-        const val WIDGET_LIKE_LOVE: String = WIDGET_LIKE + " dd.no"
+        const val WIDGET_LIKE_LOVE: String = "${IMztNodeField.WIDGET_LIKE} dd.no"
 
         const val TAG: String = "a[abs:href~=(?i)tag]" // 标签
     }

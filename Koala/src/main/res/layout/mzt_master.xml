@@ -12,52 +12,6 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <LinearLayout
-            android:id="@+id/masterPostTopContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="visible"
-            app:layout_scrollFlags="scroll|snap">
-
-            <TextView
-                android:id="@+id/masterPostTopGolden"
-                style="@style/AtomCoreStyle.WhiteNormalText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/mzt_ic_post_top_golden"
-                android:drawablePadding="@dimen/atom_core_resDimensGapNormal"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:padding="@dimen/atom_core_resDimensGapNormal"
-                android:singleLine="true"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/masterPostTopSilver"
-                style="@style/AtomCoreStyle.WhiteNormalText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/mzt_ic_post_top_silver"
-                android:drawablePadding="@dimen/atom_core_resDimensGapNormal"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:padding="@dimen/atom_core_resDimensGapNormal"
-                android:singleLine="true" />
-
-            <TextView
-                android:id="@+id/masterPostTopBronze"
-                style="@style/AtomCoreStyle.WhiteNormalText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/mzt_ic_post_top_bronze"
-                android:drawablePadding="@dimen/atom_core_resDimensGapNormal"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:padding="@dimen/atom_core_resDimensGapNormal"
-                android:singleLine="true" />
-        </LinearLayout>
-
-        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"

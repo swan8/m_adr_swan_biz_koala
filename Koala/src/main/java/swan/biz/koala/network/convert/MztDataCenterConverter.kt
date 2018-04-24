@@ -5,6 +5,7 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import retrofit2.Converter
+import swan.biz.koala.database.MzPersistentTop
 import swan.biz.koala.model.MztAlbum
 import swan.biz.koala.model.MztDataCenter
 import swan.biz.koala.model.MztUnit
@@ -40,12 +41,12 @@ object MztDataCenterConverter : Converter<ResponseBody, MztDataCenter> {
                     pageNavigationLastNumber = it.select(IMztNodeField.PAGE_NAVI_NUMBER)?.last()?.text()
                 }?.also {
                     it.select(IMztNodeField.WIDGET_TOP)?.forEach {
-                        val unit: MztUnit = MztUnit()
-                        unit.unitId = it?.selectFirst(IMztNodeField.VALID_A)?.attr(IMztNodeField.NODE_HREF)
-                        unit.title = it?.selectFirst(IMztNodeField.VALID_IMG_JPG)?.attr(IMztNodeField.NODE_ALT)
-                        unit.image = it?.selectFirst(IMztNodeField.VALID_IMG_JPG)?.attr(IMztNodeField.NODE_SRC)
+                        val persistentTop: MzPersistentTop = MzPersistentTop()
+                        persistentTop.unitId = it?.selectFirst(IMztNodeField.VALID_A)?.attr(IMztNodeField.NODE_HREF)
+                        persistentTop.title = it?.selectFirst(IMztNodeField.VALID_IMG_JPG)?.attr(IMztNodeField.NODE_ALT)
+                        persistentTop.image = it?.selectFirst(IMztNodeField.VALID_IMG_JPG)?.attr(IMztNodeField.NODE_SRC)
 
-                        top.add(unit)
+                        top.add(persistentTop)
                     }
                 }?.also {
                     it.select(IMztNodeField.WIDGET_LIKE_GUESS)?.forEach {
