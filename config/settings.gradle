@@ -47,6 +47,7 @@ ext {
             Ver_Nice_Fresco                 : "1.8.1",      // https://github.com/facebook/fresco
             Ver_Nice_photoDraweeView        : "1.1.3",      // https://github.com/ongakuer/PhotoDraweeView
             Ver_Nice_Iconify                : "2.2.2",      // https://github.com/JoanZapata/android-iconify
+            Ver_Nice_ImmersionBar           : "2.3.0",      // https://github.com/gyf-dev/ImmersionBar
     ]
 
     NewKotlin = [
@@ -117,5 +118,6 @@ ext {
             FrescoOkHttp                    : "com.facebook.fresco:imagepipeline-okhttp3:${libVersions.Ver_Nice_Fresco}",
             PhotoDraweeView                 : "me.relex:photodraweeview:${libVersions.Ver_Nice_photoDraweeView}",
             Iconify                         : "com.joanzapata.iconify:android-iconify:${libVersions.Ver_Nice_Iconify}",
+            ImmersionBar                    : "com.gyf.barlibrary:barlibrary:${libVersions.Ver_Nice_ImmersionBar}",
     ]
 }

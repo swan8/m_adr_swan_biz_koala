@@ -21,8 +21,6 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-
-
         //指定room.schemaLocation生成的文件路径
         javaCompileOptions {
             annotationProcessorOptions {
@@ -63,4 +61,6 @@ dependencies {
     implementation "${google.RoomRxJava2}"
 
     annotationProcessor "${google.RoomCompiler}"
+
+    implementation "${nice.ImmersionBar}"
 }
