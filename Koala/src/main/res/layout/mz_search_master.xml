@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/searchInputText"
+        style="@style/AtomCoreStyle.WhiteBigText"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?colorPrimary"
+        android:gravity="center_vertical"
+        android:inputType="text"
+        android:maxLines="1"
+        android:singleLine="true"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:height="50dp"
+        tools:text="searchInputText"
+        tools:textColor="@color/atom_core_resColor" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/searchLabelHistory"
+        style="@style/AtomCoreStyle.BlackBigText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingEnd="@dimen/atom_core_resDimensGapBig"
+        android:paddingStart="@dimen/atom_core_resDimensGapBig"
+        android:paddingTop="@dimen/atom_core_resDimensGapBig"
+        android:text="@string/mz_resStringSearchLabelHistory"
+        app:layout_constraintTop_toBottomOf="@+id/searchInputText" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/searchHistoryClear"
+        style="@style/AtomCoreStyle.GreySmallText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingEnd="@dimen/atom_core_resDimensGapBig"
+        android:paddingStart="@dimen/atom_core_resDimensGapBig"
+        android:text="@string/mz_resStringSearchHistoryClear"
+        app:layout_constraintBaseline_toBaselineOf="@+id/searchLabelHistory"
+        app:layout_constraintRight_toRightOf="@+id/searchLabelHistory" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/searchHistoryContainer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mz_resDimensSearchHorizontalViewHeight"
+        app:layout_constraintTop_toBottomOf="@+id/searchLabelHistory" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/searchLabelHotTags"
+        style="@style/AtomCoreStyle.BlackBigText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingEnd="@dimen/atom_core_resDimensGapBig"
+        android:paddingStart="@dimen/atom_core_resDimensGapBig"
+        android:paddingTop="@dimen/atom_core_resDimensGapBig"
+        android:text="@string/mz_resStringSearchLabelHotTags"
+        app:layout_constraintTop_toBottomOf="@+id/searchHistoryContainer" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/searchHotTagsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mz_resDimensSearchHorizontalViewHeight"
+        app:layout_constraintTop_toBottomOf="@+id/searchLabelHotTags" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/searchLabelTop"
+        style="@style/AtomCoreStyle.BlackBigText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingEnd="@dimen/atom_core_resDimensGapBig"
+        android:paddingStart="@dimen/atom_core_resDimensGapBig"
+        android:paddingTop="@dimen/atom_core_resDimensGapBig"
+        android:text="@string/mz_resStringSearchLabelTop"
+        app:layout_constraintTop_toBottomOf="@+id/searchHotTagsContainer" />
+
+    <LinearLayout
+        android:id="@+id/searchTopContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:showDividers="middle"
+        app:layout_constraintTop_toBottomOf="@+id/searchLabelTop" />
+
+</android.support.constraint.ConstraintLayout>

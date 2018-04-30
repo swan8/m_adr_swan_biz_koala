@@ -10,6 +10,7 @@ import swan.atom.core.base.AtomCoreBaseToolbarActivity
 import swan.atom.core.extensions.obtainViewModel
 import swan.biz.koala.R
 import swan.biz.koala.adapter.MztMasterTabAdapter
+import swan.biz.koala.model.MztDataCenter
 import swan.biz.koala.network.IMzituRequestService
 import swan.biz.koala.vm.MztMasterGalaxyViewModel
 import swan.biz.koala.vm.MztMasterSortedViewModel
@@ -18,6 +19,8 @@ import swan.biz.koala.vm.MztMasterSortedViewModel
  * Created by stephen on 18-3-9.
  */
 class MzituMasterActivity: AtomCoreBaseToolbarActivity(), Toolbar.OnMenuItemClickListener {
+
+    private var dataCenter: MztDataCenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,11 @@ class MzituMasterActivity: AtomCoreBaseToolbarActivity(), Toolbar.OnMenuItemClic
         }
 
         immersionBar.init()
+
+        val masterSortedViewModel: MztMasterSortedViewModel? = obtainViewModel(MztMasterSortedViewModel::class.java)
+        masterSortedViewModel?.dataCenter?.observe(this, android.arch.lifecycle.Observer {
+            this@MzituMasterActivity.dataCenter = it
+        })
 
         masterPagerContainer.let {
             it.adapter = MztMasterTabAdapter(applicationContext, supportFragmentManager)
@@ -63,6 +71,11 @@ class MzituMasterActivity: AtomCoreBaseToolbarActivity(), Toolbar.OnMenuItemClic
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         return item?.itemId?.let { itemId ->
+            if (itemId == R.id.cirrusMenuSearch) {
+                MzSearchActivity.newInstance(this@MzituMasterActivity, this@MzituMasterActivity.dataCenter, "")
+                return false
+            }
+
             val masterSortedViewModel: MztMasterSortedViewModel = obtainViewModel(MztMasterSortedViewModel::class.java)
             when (itemId) {
                 R.id.cirrusMenuSortedIndex -> masterSortedViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.INDEX)

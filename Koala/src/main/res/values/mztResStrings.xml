@@ -15,6 +15,12 @@
     <string name="mz_resStringMasterMenuItemCategoryJapan">日本</string>
     <string name="mz_resStringMasterMenuItemCategoryTaiwan">台湾</string>
 
+    <string name="mz_resStringSearchLabelHistory">搜索历史</string>
+    <string name="mz_resStringSearchHistoryClear">清除记录</string>
+    <string name="mz_resStringSearchLabelHotTags">热门标签</string>
+    <string name="mz_resStringSearchLabelTop">榜单推荐</string>
+
+
     <string name="mzt_resStringPostCreateAt">{ATOM_CORE_CLOCK}&#160;%s</string>
     <string name="mzt_resStringPostMasterTakePageNavigation">{ATOM_CORE_VIEW_CATEGORY}&#160;查看条目</string>
 </resources>
