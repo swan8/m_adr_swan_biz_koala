@@ -1,1 +1,1 @@
-include ':app', ':Koala'
+include ':app', ':Koala', "..:m_adr_swam_atom_core:AtomCore"

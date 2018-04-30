@@ -48,5 +48,10 @@ android {
 
 dependencies {
 
-    implementation "${swan.AtomCore}"
+    if (rootProject.ext.isDebug) {
+        println("===========${rootProject.ext.isDebug}")
+        implementation project(':m_adr_swan_atom_core:AtomCore')
+    } else {
+        implementation "${swan.AtomCore}"
+    }
 }

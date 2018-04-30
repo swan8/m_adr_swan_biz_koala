@@ -2,7 +2,8 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/listFateAppBar"
@@ -11,109 +12,52 @@
         android:orientation="vertical"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <LinearLayout
-            android:id="@+id/masterPostTopContainer"
+        <include
+            android:id="@+id/cirrus"
+            layout="@layout/cirrus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="visible"
-            app:layout_scrollFlags="scroll|snap">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways" />
 
-            <TextView
-                android:id="@+id/masterPostTopGolden"
-                style="@style/AtomCoreStyle.WhiteNormalText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/mzt_ic_post_top_golden"
-                android:drawablePadding="@dimen/atom_core_resDimensGapNormal"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:padding="@dimen/atom_core_resDimensGapNormal"
-                android:singleLine="true"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/masterPostTopSilver"
-                style="@style/AtomCoreStyle.WhiteNormalText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/mzt_ic_post_top_silver"
-                android:drawablePadding="@dimen/atom_core_resDimensGapNormal"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:padding="@dimen/atom_core_resDimensGapNormal"
-                android:singleLine="true" />
-
-            <TextView
-                android:id="@+id/masterPostTopBronze"
-                style="@style/AtomCoreStyle.WhiteNormalText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/mzt_ic_post_top_bronze"
-                android:drawablePadding="@dimen/atom_core_resDimensGapNormal"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:padding="@dimen/atom_core_resDimensGapNormal"
-                android:singleLine="true" />
-        </LinearLayout>
-
-        <LinearLayout
+        <android.support.design.widget.TabLayout
+            android:id="@+id/masterTabContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            app:tabContentStart="@dimen/atom_core_resDimensGapBig"
+            app:tabGravity="center"
+            app:tabIndicatorColor="@android:color/black"
+            app:tabIndicatorHeight="@dimen/atom_core_resDimensGapLineDP"
+            app:tabMaxWidth="@dimen/atom_core_resDimensSpanColossal"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@android:color/black"
+            app:tabTextAppearance="@style/AtomCoreStyle.BlackNormalText"
+            app:tabTextColor="@android:color/white">
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/masterTabContainer"
-                android:layout_width="0dp"
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways"
-                app:tabContentStart="@dimen/atom_core_resDimensGapBig"
-                app:tabGravity="center"
-                app:tabIndicatorColor="@android:color/holo_orange_light"
-                app:tabIndicatorHeight="@dimen/atom_core_resDimensGapLineDP"
-                app:tabMaxWidth="@dimen/atom_core_resDimensSpanColossal"
-                app:tabMode="scrollable"
-                app:tabSelectedTextColor="@android:color/holo_orange_light"
-                app:tabTextAppearance="@style/AtomCoreStyle.BlackNormalText"
-                app:tabTextColor="@android:color/white">
+                android:text="@string/mzt_resStringMasterTabSorted" />
 
-                <android.support.design.widget.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mzt_resStringMasterTabSorted" />
-
-                <android.support.design.widget.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mzt_resStringMasterTabGalaxy" />
-
-                <android.support.design.widget.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mzt_resStringMasterTabMixTopic" />
-
-                <android.support.design.widget.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mzt_resStringMasterTabMixSelfie" />
-
-                <android.support.design.widget.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mzt_resStringMasterTabMixAxis" />
-            </android.support.design.widget.TabLayout>
-
-            <com.joanzapata.iconify.widget.IconTextView
-                style="@style/AtomCoreStyle.WhiteBigText"
-                android:id="@+id/masterFilterSelector"
-                android:layout_width="@dimen/atom_core_resDimensSpanHuge"
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/atom_core_resDimensGapNormal"
-                android:gravity="center"
-                android:text="{ATOM_CORE_CATEGORY}" />
-        </LinearLayout>
+                android:text="@string/mzt_resStringMasterTabGalaxy" />
+
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mzt_resStringMasterTabMixTopic" />
+
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mzt_resStringMasterTabMixSelfie" />
+
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mzt_resStringMasterTabMixAxis" />
+        </android.support.design.widget.TabLayout>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager

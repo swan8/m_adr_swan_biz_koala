@@ -13,6 +13,6 @@ ext {
 
     swan = [
 
-            AtomCore                        : 'com.github.swan8:m_adr_swan_atom_core:0.0.12'
+            AtomCore                        : 'com.github.swan8:m_adr_swan_atom_core:0.0.13'
     ]
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/cirrusMenuSearch"
+        android:icon="@drawable/cirrus_ic_search_white_64dp"
+        android:title="@string/cirrusResStringSearch"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/cirrusMenuSortedIndex"
+        android:title="@string/mz_resStringMasterMenuItemSortedIndex" />
+
+    <item
+        android:id="@+id/cirrusMenuSortedHot"
+        android:title="@string/mz_resStringMasterMenuItemSortedHot" />
+
+    <item
+        android:id="@+id/cirrusMenuSortedRecommend"
+        android:title="@string/mz_resStringMasterMenuItemSortedRecommend" />
+</menu>

@@ -4,7 +4,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
 import io.reactivex.Observable
-import swan.atom.core.base.AtomCoreBaseSchedulerTransformer
+import swan.atom.core.rx.AtomCoreBaseRxJavaTransformer
 import swan.biz.koala.model.IMztDataCenter
 
 /**
@@ -33,7 +33,7 @@ abstract class MztMasterViewModel<DataCenter : IMztDataCenter> constructor(
         postRequestSetPageNoValue(isRefresh)
 
         postRequestGetService(category.value ?: "", pageNo)
-                .compose(AtomCoreBaseSchedulerTransformer())
+                .compose(AtomCoreBaseRxJavaTransformer.io_main())
                 .subscribe({
                     postRequestOnSuccess(dataCenter = it)
                 }, {
