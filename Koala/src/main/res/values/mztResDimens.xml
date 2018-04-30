@@ -6,4 +6,6 @@
     <dimen name="mzt_resDimensGreedoDefaultRowHeight36">36dp</dimen>
     <dimen name="mzt_resDimensGreedoDefaultSpacing">2dp</dimen>
 
+    <dimen name="mz_resDimensSearchHorizontalViewHeight">48dp</dimen>
+
 </resources>

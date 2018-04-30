@@ -3,13 +3,14 @@ package swan.biz.koala.activity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
-import android.support.v7.app.AlertDialog
-import android.view.View
+import android.support.v7.widget.Toolbar
+import android.view.MenuItem
 import kotlinx.android.synthetic.main.mzt_master.*
-import swan.atom.core.base.AtomCoreBaseActivity
+import swan.atom.core.base.AtomCoreBaseToolbarActivity
 import swan.atom.core.extensions.obtainViewModel
 import swan.biz.koala.R
 import swan.biz.koala.adapter.MztMasterTabAdapter
+import swan.biz.koala.model.MztDataCenter
 import swan.biz.koala.network.IMzituRequestService
 import swan.biz.koala.vm.MztMasterGalaxyViewModel
 import swan.biz.koala.vm.MztMasterSortedViewModel
@@ -17,13 +18,32 @@ import swan.biz.koala.vm.MztMasterSortedViewModel
 /**
  * Created by stephen on 18-3-9.
  */
-class MzituMasterActivity: AtomCoreBaseActivity() {
+class MzituMasterActivity: AtomCoreBaseToolbarActivity(), Toolbar.OnMenuItemClickListener {
+
+    private var dataCenter: MztDataCenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mzt_master)
 
-        masterFilterSelector.setOnClickListener(this@MzituMasterActivity)
+        layoutResId = R.layout.mzt_master
+
+        cirrusResId = R.id.cirrus
+
+        cirrus?.let {
+            builder
+                    .withCirrusTitle(R.string.app_name)
+                    .withCirrusMenu(R.menu.mz_master_cirrus_sorted_menu, this@MzituMasterActivity)
+                    .withCirrusOverflowResId(R.drawable.cirrus_ic_category_white_64dp)
+                    .build(it)
+        }
+
+        immersionBar.init()
+
+        val masterSortedViewModel: MztMasterSortedViewModel? = obtainViewModel(MztMasterSortedViewModel::class.java)
+        masterSortedViewModel?.dataCenter?.observe(this, android.arch.lifecycle.Observer {
+            this@MzituMasterActivity.dataCenter = it
+        })
 
         masterPagerContainer.let {
             it.adapter = MztMasterTabAdapter(applicationContext, supportFragmentManager)
@@ -32,10 +52,12 @@ class MzituMasterActivity: AtomCoreBaseActivity() {
             it.addOnPageChangeListener(object: ViewPager.SimpleOnPageChangeListener() {
                 override fun onPageSelected(position: Int) {
                     when (position) {
-                        MztMasterTabAdapter.POSITION.SORTED, MztMasterTabAdapter.POSITION.CATEGORY ->
-                            masterFilterSelector.visibility = View.VISIBLE
+                        MztMasterTabAdapter.POSITION.SORTED ->
+                            builder.withCirrusMenu(R.menu.mz_master_cirrus_sorted_menu, this@MzituMasterActivity).build(cirrus)
+                        MztMasterTabAdapter.POSITION.CATEGORY ->
+                            builder.withCirrusMenu(R.menu.mz_master_cirrus_category_menu, this@MzituMasterActivity).build(cirrus)
                         else ->
-                            masterFilterSelector.visibility = View.INVISIBLE
+                            builder.withCirrusMenu(R.menu.mz_master_cirrus_normal_menu, this@MzituMasterActivity).build(cirrus)
                     }
                 }
             })
@@ -47,42 +69,31 @@ class MzituMasterActivity: AtomCoreBaseActivity() {
         }
     }
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.masterFilterSelector -> {
-                val itemsId: Int? = when (masterPagerContainer.currentItem) {
-                    MztMasterTabAdapter.POSITION.SORTED ->
-                        R.array.mzt_resStringMasterTabSorted
-                    MztMasterTabAdapter.POSITION.CATEGORY ->
-                        R.array.mzt_resStringMasterTabGalaxy
-                    else -> null
-                }
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        return item?.itemId?.let { itemId ->
+            if (itemId == R.id.cirrusMenuSearch) {
+                MzSearchActivity.newInstance(this@MzituMasterActivity, this@MzituMasterActivity.dataCenter, "")
+                return false
+            }
 
-                itemsId?.let {
-                    AlertDialog.Builder(this).setItems(it, { _, which ->
-                        when (masterPagerContainer.currentItem) {
-                            MztMasterTabAdapter.POSITION.SORTED -> {
-                                val masterSortedViewModel: MztMasterSortedViewModel = obtainViewModel(MztMasterSortedViewModel::class.java)
-                                when (which) {
-                                    0 -> masterSortedViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.INDEX)
-                                    1 -> masterSortedViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.HOT)
-                                    2 -> masterSortedViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.BEST)
-                                }
-                            }
+            val masterSortedViewModel: MztMasterSortedViewModel = obtainViewModel(MztMasterSortedViewModel::class.java)
+            when (itemId) {
+                R.id.cirrusMenuSortedIndex -> masterSortedViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.INDEX)
+                R.id.cirrusMenuSortedHot -> masterSortedViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.HOT)
+                R.id.cirrusMenuSortedRecommend -> masterSortedViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.BEST)
 
-                            MztMasterTabAdapter.POSITION.CATEGORY -> {
-                                val masterGalaxyViewModel: MztMasterGalaxyViewModel = obtainViewModel(MztMasterGalaxyViewModel::class.java)
-                                when (which) {
-                                    0 -> masterGalaxyViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.MM)
-                                    1 -> masterGalaxyViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.SEXY)
-                                    2 -> masterGalaxyViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.JAPAN)
-                                    3 -> masterGalaxyViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.TW)
-                                }
-                            }
-                        }
-                    }).show()
+                else -> {
+                    val masterGalaxyViewModel: MztMasterGalaxyViewModel = obtainViewModel(MztMasterGalaxyViewModel::class.java)
+                    when (itemId) {
+                        R.id.cirrusMenuCategoryGirl -> masterGalaxyViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.MM)
+                        R.id.cirrusMenuCategorySex -> masterGalaxyViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.SEXY)
+                        R.id.cirrusMenuCategoryJapan -> masterGalaxyViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.JAPAN)
+                        R.id.cirrusMenuCategoryTaiwan -> masterGalaxyViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.TW)
+                    }
                 }
-            } else -> super.onClick(v)
-        }
+            }
+
+            false
+        } ?: false
     }
 }
