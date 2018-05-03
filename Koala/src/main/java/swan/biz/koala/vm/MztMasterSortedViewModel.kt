@@ -6,13 +6,13 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import swan.biz.koala.database.MzPersistentDatabaseHelper
 import swan.biz.koala.model.MztDataCenter
-import swan.biz.koala.network.IMzituRequestService
+import swan.biz.koala.network.IMzApiRequestService
 import swan.biz.koala.network.MzituRequestDelegate
 
 /**
  * Created by stephen on 14/03/2018.
  */
-class MztMasterSortedViewModel : MztMasterViewModel<MztDataCenter>(IMzituRequestService.CATEGORY.INDEX) {
+class MztMasterSortedViewModel : MztMasterViewModel<MztDataCenter>(IMzApiRequestService.CATEGORY.INDEX) {
 
     override val initializerPageNo: Int = 1
 

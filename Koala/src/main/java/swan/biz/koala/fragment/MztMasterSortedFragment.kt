@@ -18,7 +18,7 @@ import swan.biz.koala.KoalaApplicationImpl
 import swan.biz.koala.R
 import swan.biz.koala.activity.MztPostActivity
 import swan.biz.koala.adapter.item.MztSortedListBodyItem
-import swan.biz.koala.network.IMzituRequestService
+import swan.biz.koala.network.IMzApiRequestService
 import swan.biz.koala.vm.MztMasterSortedViewModel
 import java.util.*
 
@@ -54,7 +54,7 @@ class MztMasterSortedFragment : AtomCoreBaseFragment(), SmoothRefreshLayout.OnRe
             fastItemAdapter = FastItemAdapter<MztSortedListBodyItem>()
             it.adapter = fastItemAdapter
 
-            it.addOnItemTouchListener(AtomCoreRecyclerItemClickListener(context!!, object: AtomCoreRecyclerItemClickListener.SimpleOnItemClickListener() {
+            it.addOnItemTouchListener(AtomCoreRecyclerItemClickListener(context!!, object : AtomCoreRecyclerItemClickListener.SimpleOnItemClickListener() {
 
                 override fun onItemClick(childView: View?, position: Int) {
                     fastItemAdapter?.getAdapterItem(position)?.let {
@@ -84,11 +84,11 @@ class MztMasterSortedFragment : AtomCoreBaseFragment(), SmoothRefreshLayout.OnRe
             masterSortedViewModel.clearAdapterItemDataWhenFirstPage(fastItemAdapter)
             fastItemAdapter?.add(items)
 
-            masterSortedRefreshContainer.setDisableLoadMore(! it?.pageNavigationHasNext!!)
+            masterSortedRefreshContainer.setDisableLoadMore(!it?.pageNavigationHasNext!!)
             masterSortedRefreshContainer.refreshComplete()
         })
 
-        masterSortedViewModel?.resetMasterSortedCategory(IMzituRequestService.CATEGORY.INDEX)
+        masterSortedViewModel?.resetMasterSortedCategory(IMzApiRequestService.CATEGORY.INDEX)
     }
 
     override fun onRefreshBegin(isRefresh: Boolean) {

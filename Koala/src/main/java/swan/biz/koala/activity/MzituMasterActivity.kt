@@ -11,7 +11,7 @@ import swan.atom.core.extensions.obtainViewModel
 import swan.biz.koala.R
 import swan.biz.koala.adapter.MztMasterTabAdapter
 import swan.biz.koala.model.MztDataCenter
-import swan.biz.koala.network.IMzituRequestService
+import swan.biz.koala.network.IMzApiRequestService
 import swan.biz.koala.vm.MztMasterGalaxyViewModel
 import swan.biz.koala.vm.MztMasterSortedViewModel
 
@@ -78,17 +78,17 @@ class MzituMasterActivity: AtomCoreBaseToolbarActivity(), Toolbar.OnMenuItemClic
 
             val masterSortedViewModel: MztMasterSortedViewModel = obtainViewModel(MztMasterSortedViewModel::class.java)
             when (itemId) {
-                R.id.cirrusMenuSortedIndex -> masterSortedViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.INDEX)
-                R.id.cirrusMenuSortedHot -> masterSortedViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.HOT)
-                R.id.cirrusMenuSortedRecommend -> masterSortedViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.BEST)
+                R.id.cirrusMenuSortedIndex -> masterSortedViewModel.resetMasterSortedCategory(IMzApiRequestService.CATEGORY.INDEX)
+                R.id.cirrusMenuSortedHot -> masterSortedViewModel.resetMasterSortedCategory(IMzApiRequestService.CATEGORY.HOT)
+                R.id.cirrusMenuSortedRecommend -> masterSortedViewModel.resetMasterSortedCategory(IMzApiRequestService.CATEGORY.BEST)
 
                 else -> {
                     val masterGalaxyViewModel: MztMasterGalaxyViewModel = obtainViewModel(MztMasterGalaxyViewModel::class.java)
                     when (itemId) {
-                        R.id.cirrusMenuCategoryGirl -> masterGalaxyViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.MM)
-                        R.id.cirrusMenuCategorySex -> masterGalaxyViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.SEXY)
-                        R.id.cirrusMenuCategoryJapan -> masterGalaxyViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.JAPAN)
-                        R.id.cirrusMenuCategoryTaiwan -> masterGalaxyViewModel.resetMasterSortedCategory(IMzituRequestService.CATEGORY.TW)
+                        R.id.cirrusMenuCategoryGirl -> masterGalaxyViewModel.resetMasterSortedCategory(IMzApiRequestService.CATEGORY.MM)
+                        R.id.cirrusMenuCategorySex -> masterGalaxyViewModel.resetMasterSortedCategory(IMzApiRequestService.CATEGORY.SEXY)
+                        R.id.cirrusMenuCategoryJapan -> masterGalaxyViewModel.resetMasterSortedCategory(IMzApiRequestService.CATEGORY.JAPAN)
+                        R.id.cirrusMenuCategoryTaiwan -> masterGalaxyViewModel.resetMasterSortedCategory(IMzApiRequestService.CATEGORY.TW)
                     }
                 }
             }

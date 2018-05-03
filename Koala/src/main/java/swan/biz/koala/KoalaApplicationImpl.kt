@@ -11,7 +11,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import swan.atom.core.base.SwanAtomApplicationImpl
-import swan.biz.koala.network.IMzituRequestService
+import swan.biz.koala.network.IMzApiRequestService
 import java.lang.ref.WeakReference
 
 /**
@@ -31,7 +31,7 @@ object KoalaApplicationImpl: SwanAtomApplicationImpl {
                         }).setLevel(HttpLoggingInterceptor.Level.HEADERS))
                         .addInterceptor({
                             val builder: Request.Builder = it.request().newBuilder()
-                            it.proceed(builder.addHeader("Referer", IMzituRequestService.BASE_URL).build())
+                            it.proceed(builder.addHeader("Referer", IMzApiRequestService.BASE_URL).build())
                         }).build())
                 .setMainDiskCacheConfig(
                         DiskCacheConfig.newBuilder(context)

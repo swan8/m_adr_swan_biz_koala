@@ -16,7 +16,7 @@ import java.io.File
  */
 object MzituRequestDelegate {
 
-    private val requestService: IMzituRequestService
+    private val requestService: IMzApiRequestService
 
     init {
 
@@ -30,16 +30,16 @@ object MzituRequestDelegate {
 
         var retrofit: Retrofit = Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl(IMzituRequestService.BASE_URL)
+                .baseUrl(IMzApiRequestService.BASE_URL)
                 .addConverterFactory(MztJsoupConverterFactory)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
 
-        requestService = retrofit.create(IMzituRequestService::class.java)
+        requestService = retrofit.create(IMzApiRequestService::class.java)
     }
 
-    fun requestService(): IMzituRequestService {
+    fun requestService(): IMzApiRequestService {
         return requestService
     }
 }

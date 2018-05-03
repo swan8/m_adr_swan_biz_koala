@@ -5,21 +5,18 @@ import swan.biz.koala.model.MztDataCenter
 import swan.biz.koala.network.IMzApiRequestService
 import swan.biz.koala.network.MzituRequestDelegate
 
-/**
- * Created by stephen on 18-3-16.
- */
-class MztMasterGalaxyViewModel : MztMasterViewModel<MztDataCenter>(IMzApiRequestService.CATEGORY.MM) {
+class MzSearchViewModel : MztMasterViewModel<MztDataCenter>(IMzApiRequestService.CATEGORY.SEARCH) {
 
     override val initializerPageNo: Int = 1
 
-    override var pageNo: Int = initializerPageNo
+    override var pageNo: Int = 1
 
     override fun postRequestSetPageNoValue(isRefresh: Boolean) {
         postRequestPlusPageNoValue(isRefresh)
     }
 
     override fun postRequestGetService(category: String, pageNo: Int): Observable<MztDataCenter> {
-        return MzituRequestDelegate.requestService().postRequestMztPagePathData(category, pageNo)
+        return MzituRequestDelegate.requestService().postApiRequestMzSearch(category, pageNo)
     }
 
     override fun postRequestOnSuccess(dataCenter: MztDataCenter) {

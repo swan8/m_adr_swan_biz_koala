@@ -9,7 +9,7 @@ import swan.biz.koala.database.MzPersistentTop
 import swan.biz.koala.model.MztAlbum
 import swan.biz.koala.model.MztDataCenter
 import swan.biz.koala.model.MztUnit
-import swan.biz.koala.network.IMzituRequestService
+import swan.biz.koala.network.IMzApiRequestService
 import swan.biz.koala.network.IMztNodeField
 
 /**
@@ -27,9 +27,9 @@ object MztDataCenterConverter : Converter<ResponseBody, MztDataCenter> {
         }?.also {
                     canonical = it.selectFirst(IMztNodeField.LINK.LINK_CANONICAL)?.attr(IMztNodeField.NODE.HREF)?.also {
                         when {
-                            it.contains(IMzituRequestService.CATEGORY.TOPIC) ->
+                            it.contains(IMzApiRequestService.CATEGORY.TOPIC) ->
                                 postListTopicWithElements(document)
-                            it.contains(IMzituRequestService.CATEGORY.SELFIE) ->
+                            it.contains(IMzApiRequestService.CATEGORY.SELFIE) ->
                                 postListSelfieWithElements(document)
                             else -> postListConverter(document)
                         }
@@ -57,7 +57,7 @@ object MztDataCenterConverter : Converter<ResponseBody, MztDataCenter> {
                         unit.title = it?.selectFirst(IMztNodeField.VALID_A)?.text()
                     }
                 }?.also {
-                    document?.select(IMztNodeField.WIDGET_LIKE_LOVE)?.forEach {
+                    document.select(IMztNodeField.WIDGET_LIKE_LOVE)?.forEach {
                         val unit: MztUnit = MztUnit()
                         love.add(unit)
 

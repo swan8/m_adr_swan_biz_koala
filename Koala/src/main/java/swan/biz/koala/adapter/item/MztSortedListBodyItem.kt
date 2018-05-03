@@ -34,7 +34,7 @@ class MztSortedListBodyItem(album: MztAlbum) : AtomCoreBaseFasterItem<MztAlbum, 
     class MztSortedListBodyItemHolder(view: View?) : AtomCoreBaseFasterItemHolder<MztAlbum>(view) {
 
         override fun onBindView(context: Context?, src: MztAlbum?) {
-            itemView.bodyImage.setImageURI(src?.image)
+//            itemView.bodyImage.setImageURI(src?.image)
         }
     }
 }

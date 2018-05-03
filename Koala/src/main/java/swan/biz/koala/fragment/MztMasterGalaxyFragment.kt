@@ -15,7 +15,7 @@ import swan.atom.core.base.AtomCoreBaseFragment
 import swan.biz.koala.KoalaApplicationImpl
 import swan.biz.koala.R
 import swan.biz.koala.adapter.item.MztSortedListBodyItem
-import swan.biz.koala.network.IMzituRequestService
+import swan.biz.koala.network.IMzApiRequestService
 import swan.biz.koala.vm.MztMasterGalaxyViewModel
 import java.util.*
 
@@ -78,7 +78,7 @@ class MztMasterGalaxyFragment : AtomCoreBaseFragment(), SmoothRefreshLayout.OnRe
 
     override fun fragmentOnFirstVisibleToUser() {
         val masterGalaxyViewModel: MztMasterGalaxyViewModel? = obtainViewModel(MztMasterGalaxyViewModel::class.java)
-        masterGalaxyViewModel?.resetMasterSortedCategory(IMzituRequestService.CATEGORY.MM)
+        masterGalaxyViewModel?.resetMasterSortedCategory(IMzApiRequestService.CATEGORY.MM)
     }
 
     override fun onRefreshBegin(isRefresh: Boolean) {

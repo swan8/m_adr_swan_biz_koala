@@ -11,6 +11,9 @@ object IMzituApiField {
     // I
     const val imageId: String = "imageId"
 
+    // K
+    const val keyword: String = "keyword"
+
     // P
     const val page: String = "page"
 

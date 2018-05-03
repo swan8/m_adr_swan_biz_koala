@@ -2,13 +2,13 @@ package swan.biz.koala.vm
 
 import io.reactivex.Observable
 import swan.biz.koala.model.MztDataCenter
-import swan.biz.koala.network.IMzituRequestService
+import swan.biz.koala.network.IMzApiRequestService
 import swan.biz.koala.network.MzituRequestDelegate
 
 /**
  * Created by stephen on 18-3-16.
  */
-class MztMasterMixSelfieViewModel : MztMasterViewModel<MztDataCenter>(IMzituRequestService.CATEGORY.SELFIE) {
+class MztMasterMixSelfieViewModel : MztMasterViewModel<MztDataCenter>(IMzApiRequestService.CATEGORY.SELFIE) {
 
     override val initializerPageNo: Int = 0
 

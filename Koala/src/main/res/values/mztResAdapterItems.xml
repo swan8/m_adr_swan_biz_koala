@@ -5,4 +5,8 @@
 
     <item type="id" name="mzt_resAdapterItem_PostMasterNavigationBody" />
 
+    <item type="id" name="mz_resAdapterItem_SearchHeader" />
+
+    <item type="id" name="mz_resAdapterItem_SearchBody" />
+
 </resources>
